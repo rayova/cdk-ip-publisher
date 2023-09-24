@@ -1,6 +1,45 @@
 {
   "dependencies": [
     {
+      "name": "@aws-lambda-powertools/tracer",
+      "version": "^1",
+      "type": "build"
+    },
+    {
+      "name": "@aws-sdk/client-dynamodb",
+      "version": "^3",
+      "type": "build"
+    },
+    {
+      "name": "@aws-sdk/client-ec2",
+      "version": "^3",
+      "type": "build"
+    },
+    {
+      "name": "@aws-sdk/client-ecs",
+      "version": "^3",
+      "type": "build"
+    },
+    {
+      "name": "@aws-sdk/client-route-53",
+      "version": "^3",
+      "type": "build"
+    },
+    {
+      "name": "@aws-sdk/lib-dynamodb",
+      "version": "^3",
+      "type": "build"
+    },
+    {
+      "name": "@middy/core",
+      "version": "^4",
+      "type": "build"
+    },
+    {
+      "name": "@types/aws-lambda",
+      "type": "build"
+    },
+    {
       "name": "@types/jest",
       "type": "build"
     },
@@ -21,12 +60,26 @@
     },
     {
       "name": "aws-cdk-lib",
-      "version": "2.1.0",
+      "version": "2.97.0",
+      "type": "build"
+    },
+    {
+      "name": "aws-cdk",
+      "version": "^2",
       "type": "build"
     },
     {
       "name": "constructs",
       "version": "10.0.5",
+      "type": "build"
+    },
+    {
+      "name": "electrodb",
+      "version": "^2",
+      "type": "build"
+    },
+    {
+      "name": "esbuild",
       "type": "build"
     },
     {
@@ -87,11 +140,6 @@
       "type": "build"
     },
     {
-      "name": "standard-version",
-      "version": "^9",
-      "type": "build"
-    },
-    {
       "name": "ts-jest",
       "type": "build"
     },
@@ -104,8 +152,13 @@
       "type": "build"
     },
     {
+      "name": "zod",
+      "version": "^3",
+      "type": "build"
+    },
+    {
       "name": "aws-cdk-lib",
-      "version": "^2.1.0",
+      "version": "^2.97.0",
       "type": "peer"
     },
     {

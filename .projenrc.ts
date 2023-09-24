@@ -1,17 +1,63 @@
 import { awscdk } from 'projen';
+
 const project = new awscdk.AwsCdkConstructLibrary({
   author: 'Josh Kellendonk',
   authorAddress: 'joshkellendonk@gmail.com',
-  cdkVersion: '2.1.0',
+  cdkVersion: '2.97.0',
   defaultReleaseBranch: 'main',
   jsiiVersion: '~5.0.0',
-  name: 'cdk-caddy',
+  name: '@rayova/cdk-ecs-addresses',
   projenrcTs: true,
-  repositoryUrl: 'https://github.com/joshkellendonk/cdk-caddy.git',
+  repositoryUrl: 'https://github.com/rayova/cdk-ecs-addresses.git',
+
+  release: false,
+
+  devDeps: [
+    '@types/aws-lambda',
+    '@aws-sdk/client-ecs@^3',
+    '@aws-sdk/client-route-53@^3',
+    '@aws-sdk/client-ec2@^3',
+    '@aws-sdk/client-dynamodb@^3',
+    '@aws-sdk/lib-dynamodb@^3',
+    '@aws-lambda-powertools/tracer@^1',
+    'zod@^3',
+    'electrodb@^2',
+    '@middy/core@^4',
+  ],
+
+  tsconfig: {
+    compilerOptions: {
+      experimentalDecorators: true,
+    },
+  },
+
+  tsconfigDev: {
+    compilerOptions: {
+      experimentalDecorators: true,
+    },
+  },
 
   // deps: [],                /* Runtime dependencies of this module. */
   // description: undefined,  /* The description is just a string that helps people understand the purpose of the package. */
   // devDeps: [],             /* Build dependencies for this module. */
   // packageName: undefined,  /* The "name" in package.json. */
 });
+
+project.addGitIgnore('.idea');
+
+const cdkConfig = new awscdk.CdkConfig(project, {
+  app: '', // Required for types.
+  buildCommand: 'npm run bundle',
+  watchIncludes: [
+    `${project.srcdir}/**/*.ts`,
+    `${project.testdir}/**/*.integ.ts`,
+  ],
+});
+// cdkConfig.json.addDeletionOverride('build');
+cdkConfig.json.addDeletionOverride('app');
+cdkConfig.json.addDeletionOverride('context');
+cdkConfig.json.addDeletionOverride('output');
+
+project.eslint!.addIgnorePattern('src/functions/**/*');
+
 project.synth();

@@ -1,12 +1,18 @@
 {
-  "name": "cdk-caddy",
+  "name": "@rayova/cdk-ecs-addresses",
   "repository": {
     "type": "git",
-    "url": "https://github.com/joshkellendonk/cdk-caddy.git"
+    "url": "https://github.com/rayova/cdk-ecs-addresses.git"
   },
   "scripts": {
     "build": "npx projen build",
-    "bump": "npx projen bump",
+    "bundle": "npx projen bundle",
+    "bundle:functions/database-outbox.lambda": "npx projen bundle:functions/database-outbox.lambda",
+    "bundle:functions/database-outbox.lambda:watch": "npx projen bundle:functions/database-outbox.lambda:watch",
+    "bundle:functions/task-started.lambda": "npx projen bundle:functions/task-started.lambda",
+    "bundle:functions/task-started.lambda:watch": "npx projen bundle:functions/task-started.lambda:watch",
+    "bundle:functions/task-stopping.lambda": "npx projen bundle:functions/task-stopping.lambda",
+    "bundle:functions/task-stopping.lambda:watch": "npx projen bundle:functions/task-stopping.lambda:watch",
     "clobber": "npx projen clobber",
     "compat": "npx projen compat",
     "compile": "npx projen compile",
@@ -14,16 +20,20 @@
     "docgen": "npx projen docgen",
     "eject": "npx projen eject",
     "eslint": "npx projen eslint",
+    "integ:main:assert": "npx projen integ:main:assert",
+    "integ:main:deploy": "npx projen integ:main:deploy",
+    "integ:main:destroy": "npx projen integ:main:destroy",
+    "integ:main:snapshot": "npx projen integ:main:snapshot",
+    "integ:main:watch": "npx projen integ:main:watch",
+    "integ:snapshot-all": "npx projen integ:snapshot-all",
     "package": "npx projen package",
     "package-all": "npx projen package-all",
     "package:js": "npx projen package:js",
     "post-compile": "npx projen post-compile",
     "post-upgrade": "npx projen post-upgrade",
     "pre-compile": "npx projen pre-compile",
-    "release": "npx projen release",
     "test": "npx projen test",
     "test:watch": "npx projen test:watch",
-    "unbump": "npx projen unbump",
     "upgrade": "npx projen upgrade",
     "watch": "npx projen watch",
     "projen": "npx projen"
@@ -34,12 +44,23 @@
     "organization": false
   },
   "devDependencies": {
+    "@aws-lambda-powertools/tracer": "^1",
+    "@aws-sdk/client-dynamodb": "^3",
+    "@aws-sdk/client-ec2": "^3",
+    "@aws-sdk/client-ecs": "^3",
+    "@aws-sdk/client-route-53": "^3",
+    "@aws-sdk/lib-dynamodb": "^3",
+    "@middy/core": "^4",
+    "@types/aws-lambda": "^8.10.122",
     "@types/jest": "^29.5.5",
     "@types/node": "^16",
     "@typescript-eslint/eslint-plugin": "^6",
     "@typescript-eslint/parser": "^6",
-    "aws-cdk-lib": "2.1.0",
+    "aws-cdk": "^2",
+    "aws-cdk-lib": "2.97.0",
     "constructs": "10.0.5",
+    "electrodb": "^2",
+    "esbuild": "^0.19.3",
     "eslint": "^8",
     "eslint-import-resolver-node": "^0.3.9",
     "eslint-import-resolver-typescript": "^3.6.1",
@@ -53,13 +74,13 @@
     "jsii-rosetta": "~5.0.0",
     "npm-check-updates": "^16",
     "projen": "^0.73.30",
-    "standard-version": "^9",
     "ts-jest": "^29.1.1",
     "ts-node": "^10.9.1",
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "zod": "^3"
   },
   "peerDependencies": {
-    "aws-cdk-lib": "^2.1.0",
+    "aws-cdk-lib": "^2.97.0",
     "constructs": "^10.0.5"
   },
   "keywords": [
