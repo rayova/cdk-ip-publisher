@@ -1,10 +1,11 @@
 import { Entity, EntityItem, Service } from 'electrodb';
 import { DynamoDBDocumentClient } from '@aws-sdk/lib-dynamodb';
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
+import { serviceName } from './constants';
 
 const EcsTaskIps = new Entity({
   model: {
-    service: 'cdk-ecs-caddy',
+    service: serviceName,
     entity: 'EcsTaskIps',
     version: '1',
   },
@@ -34,15 +35,19 @@ const EcsTaskIps = new Entity({
   },
 });
 
-export type IpGroup = EntityItem<typeof IpGroup>;
-const IpGroup = new Entity({
+export type DnsRecord = EntityItem<typeof DnsRecord>;
+const DnsRecord = new Entity({
   model: {
-    service: 'cdk-ecs-caddy',
-    entity: 'IpGroup',
+    service: serviceName,
+    entity: 'DnsRecord',
     version: '1',
   },
   attributes: {
-    group: {
+    hostedZoneId: {
+      type: 'string',
+      required: true,
+    },
+    name: {
       type: 'string',
       required: true,
     },
@@ -62,11 +67,11 @@ const IpGroup = new Entity({
     main: {
       pk: {
         field: 'pk',
-        composite: ['group'],
+        composite: ['hostedZoneId'],
       },
       sk: {
         field: 'sk',
-        composite: [],
+        composite: ['name'],
       },
     },
   },
@@ -74,7 +79,7 @@ const IpGroup = new Entity({
 
 export const database = new Service({
   EcsTaskIps,
-  IpGroup,
+  DnsRecord,
 }, {
   table: process.env.TABLE,
   client: DynamoDBDocumentClient.from(new DynamoDBClient({})),

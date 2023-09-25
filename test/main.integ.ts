@@ -1,21 +1,52 @@
-import { App, aws_route53, Stack } from 'aws-cdk-lib';
-import { CaddyService } from '../src';
+import { App, aws_ec2, aws_ecs, aws_route53, Stack } from 'aws-cdk-lib';
+import { DnsManager } from '../src';
 
 const app = new App();
 
-const stack = new Stack(app, 'cdk-caddy-main-integ');
+const stack = new Stack(app, 'integ-cdk-ecs-dns');
 
-const hostedZone = aws_route53.HostedZone.fromHostedZoneAttributes(stack, 'HostedZone', {
-  hostedZoneId: 'Z06399031EF646V59RCNP',
-  zoneName: '812696460994.dev.rayova.com',
+const vpc = new aws_ec2.Vpc(stack, 'Vpc', {
+  subnetConfiguration: [
+    {
+      name: 'public',
+      subnetType: aws_ec2.SubnetType.PUBLIC,
+      mapPublicIpOnLaunch: true,
+    },
+  ],
 });
 
-const caddyService = new CaddyService(stack, 'CaddyService', {});
+const cluster = new aws_ecs.Cluster(stack, 'Cluster', { vpc });
 
-new aws_route53.ARecord(stack, 'ARecord', {
-  zone: hostedZone,
-  recordName: `caddy.${hostedZone.zoneName}`,
-  target: aws_route53.RecordTarget.fromAlias(caddyService.aliasTarget),
+const taskDefinition = new aws_ecs.FargateTaskDefinition(stack, 'Task');
+
+taskDefinition.addContainer('main', {
+  image: aws_ecs.ContainerImage.fromRegistry('nginx'),
+  portMappings: [{ containerPort: 80 }],
+});
+
+const service = new aws_ecs.FargateService(stack, 'Service', {
+  cluster,
+  taskDefinition,
+  assignPublicIp: true,
+  capacityProviderStrategies: [
+    {
+      capacityProvider: 'FARGATE_SPOT',
+      weight: 1,
+    },
+  ],
+});
+
+service.connections.allowFromAnyIpv4(aws_ec2.Port.tcp(80));
+
+const hostedZone = new aws_route53.PublicHostedZone(stack, 'HostedZone', {
+  zoneName: 'cdk-ecs-dns.dev.wheatstalk.ca',
+});
+
+const dnsManager = new DnsManager(stack, 'DnsManager2');
+
+dnsManager.publishEcsService('example', {
+  hostedZone,
+  service,
 });
 
 app.synth();

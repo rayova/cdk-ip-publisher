@@ -1,5 +1,6 @@
 import { TaskStateChange$ } from './common';
 import { database } from './database';
+import { env } from './env';
 
 export async function handler(event: unknown) {
   const parsedEvent = TaskStateChange$.parse(event);
@@ -11,12 +12,9 @@ export async function handler(event: unknown) {
     return;
   }
 
-  const publicIps = data.publicIps;
-  const group = process.env.GROUP!;
-
-  await database.entities.IpGroup
-    .patch({ group })
-    .delete({ publicIps })
+  await database.entities.DnsRecord
+    .patch({ hostedZoneId: env.HOSTED_ZONE_ID, name: env.RECORD_NAME })
+    .delete({ publicIps: data.publicIps ?? [] })
     .add({ version: 1 })
     .go();
 

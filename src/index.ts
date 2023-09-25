@@ -1,1 +1,1 @@
-export * from './CaddyService';
+export * from './DnsManager';
