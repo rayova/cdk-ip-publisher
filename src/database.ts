@@ -1,7 +1,9 @@
-import { Entity, EntityItem, Service } from 'electrodb';
-import { DynamoDBDocumentClient } from '@aws-sdk/lib-dynamodb';
+/* eslint-disable import/no-extraneous-dependencies */
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
-import { serviceName } from './constants';
+import { DynamoDBDocumentClient } from '@aws-sdk/lib-dynamodb';
+import { Entity, EntityItem, Service } from 'electrodb';
+
+import { serviceName } from './runtime';
 
 const EcsTaskIps = new Entity({
   model: {
@@ -19,6 +21,9 @@ const EcsTaskIps = new Entity({
       items: 'string',
       required: true,
       default: [],
+    },
+    expiresAt: {
+      type: 'number',
     },
   },
   indexes: {

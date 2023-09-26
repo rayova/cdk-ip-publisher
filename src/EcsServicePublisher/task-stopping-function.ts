@@ -10,16 +10,16 @@ export interface TaskStoppingFunctionProps extends lambda.FunctionOptions {
 }
 
 /**
- * An AWS Lambda function which executes src/functions/task-stopping.
+ * An AWS Lambda function which executes src/EcsServicePublisher/task-stopping.
  */
 export class TaskStoppingFunction extends lambda.Function {
   constructor(scope: Construct, id: string, props?: TaskStoppingFunctionProps) {
     super(scope, id, {
-      description: 'src/functions/task-stopping.lambda.ts',
+      description: 'src/EcsServicePublisher/task-stopping.lambda.ts',
       ...props,
       runtime: new lambda.Runtime('nodejs16.x', lambda.RuntimeFamily.NODEJS),
       handler: 'index.handler',
-      code: lambda.Code.fromAsset(path.join(__dirname, '../../assets/functions/task-stopping.lambda')),
+      code: lambda.Code.fromAsset(path.join(__dirname, '../../assets/EcsServicePublisher/task-stopping.lambda')),
     });
     this.addEnvironment('AWS_NODEJS_CONNECTION_REUSE_ENABLED', '1', { removeInEdge: true });
   }

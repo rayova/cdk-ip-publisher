@@ -1,10 +1,11 @@
 import { aws_dynamodb, aws_ecs, aws_route53, RemovalPolicy } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-import { EcsServiceIps } from './EcsServiceIps';
+import { EcsServicePublisher } from './EcsServicePublisher';
 import { Route53Writer } from './Route53Writer';
 
 export class DnsManager extends Construct {
   private readonly table: aws_dynamodb.Table;
+  private readonly writer: Route53Writer;
 
   constructor(scope: Construct, id: string) {
     super(scope, id);
@@ -20,22 +21,40 @@ export class DnsManager extends Construct {
         name: 'sk',
         type: aws_dynamodb.AttributeType.STRING,
       },
-      stream: aws_dynamodb.StreamViewType.NEW_IMAGE,
+      timeToLiveAttribute: 'expiresAt',
+      stream: aws_dynamodb.StreamViewType.NEW_AND_OLD_IMAGES,
     });
 
-    new Route53Writer(this, 'Route53Writer', {
+    this.table.addGlobalSecondaryIndex({
+      indexName: 'gsi1',
+      partitionKey: {
+        name: 'sk',
+        type: aws_dynamodb.AttributeType.STRING,
+      },
+      sortKey: {
+        name: 'pk',
+        type: aws_dynamodb.AttributeType.STRING,
+      },
+    });
+
+    this.writer = new Route53Writer(this, 'Route53Writer', {
       table: this.table,
     });
   }
 
   publishEcsService(id: string, params: PublishEcsServiceParams): void {
-    const name = params.name ?? id;
+    const name = (params.name ?? id).toLowerCase();
 
-    new EcsServiceIps(this, id, {
+    this.writer.registerRecord({
+      hostedZone: params.hostedZone,
+      name,
+    });
+
+    new EcsServicePublisher(this, id, {
       table: this.table,
       hostedZone: params.hostedZone,
       service: params.service,
-      name: name.toLowerCase(),
+      name,
     });
   }
 }

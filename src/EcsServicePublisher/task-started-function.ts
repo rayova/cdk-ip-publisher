@@ -10,16 +10,16 @@ export interface TaskStartedFunctionProps extends lambda.FunctionOptions {
 }
 
 /**
- * An AWS Lambda function which executes src/functions/task-started.
+ * An AWS Lambda function which executes src/EcsServicePublisher/task-started.
  */
 export class TaskStartedFunction extends lambda.Function {
   constructor(scope: Construct, id: string, props?: TaskStartedFunctionProps) {
     super(scope, id, {
-      description: 'src/functions/task-started.lambda.ts',
+      description: 'src/EcsServicePublisher/task-started.lambda.ts',
       ...props,
       runtime: new lambda.Runtime('nodejs16.x', lambda.RuntimeFamily.NODEJS),
       handler: 'index.handler',
-      code: lambda.Code.fromAsset(path.join(__dirname, '../../assets/functions/task-started.lambda')),
+      code: lambda.Code.fromAsset(path.join(__dirname, '../../assets/EcsServicePublisher/task-started.lambda')),
     });
     this.addEnvironment('AWS_NODEJS_CONNECTION_REUSE_ENABLED', '1', { removeInEdge: true });
   }

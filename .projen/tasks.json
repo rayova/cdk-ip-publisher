@@ -29,67 +29,109 @@
       "description": "Prepare assets",
       "steps": [
         {
-          "spawn": "bundle:functions/database-outbox.lambda"
+          "spawn": "bundle:EcsServicePublisher/task-started.lambda"
         },
         {
-          "spawn": "bundle:functions/task-started.lambda"
+          "spawn": "bundle:EcsServicePublisher/task-stopping.lambda"
         },
         {
-          "spawn": "bundle:functions/task-stopping.lambda"
+          "spawn": "bundle:EcsServicePublisher/task-sync.lambda"
+        },
+        {
+          "spawn": "bundle:Route53Writer/gc.lambda"
+        },
+        {
+          "spawn": "bundle:Route53Writer/stream-handler.lambda"
         }
       ]
     },
-    "bundle:functions/database-outbox.lambda": {
-      "name": "bundle:functions/database-outbox.lambda",
-      "description": "Create a JavaScript bundle from src/functions/database-outbox.lambda.ts",
+    "bundle:EcsServicePublisher/task-started.lambda": {
+      "name": "bundle:EcsServicePublisher/task-started.lambda",
+      "description": "Create a JavaScript bundle from src/EcsServicePublisher/task-started.lambda.ts",
       "steps": [
         {
-          "exec": "esbuild --bundle src/functions/database-outbox.lambda.ts --target=\"node16\" --platform=\"node\" --outfile=\"assets/functions/database-outbox.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:aws-sdk"
+          "exec": "esbuild --bundle src/EcsServicePublisher/task-started.lambda.ts --target=\"node16\" --platform=\"node\" --outfile=\"assets/EcsServicePublisher/task-started.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:aws-sdk"
         }
       ]
     },
-    "bundle:functions/database-outbox.lambda:watch": {
-      "name": "bundle:functions/database-outbox.lambda:watch",
-      "description": "Continuously update the JavaScript bundle from src/functions/database-outbox.lambda.ts",
+    "bundle:EcsServicePublisher/task-started.lambda:watch": {
+      "name": "bundle:EcsServicePublisher/task-started.lambda:watch",
+      "description": "Continuously update the JavaScript bundle from src/EcsServicePublisher/task-started.lambda.ts",
       "steps": [
         {
-          "exec": "esbuild --bundle src/functions/database-outbox.lambda.ts --target=\"node16\" --platform=\"node\" --outfile=\"assets/functions/database-outbox.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:aws-sdk --watch"
+          "exec": "esbuild --bundle src/EcsServicePublisher/task-started.lambda.ts --target=\"node16\" --platform=\"node\" --outfile=\"assets/EcsServicePublisher/task-started.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:aws-sdk --watch"
         }
       ]
     },
-    "bundle:functions/task-started.lambda": {
-      "name": "bundle:functions/task-started.lambda",
-      "description": "Create a JavaScript bundle from src/functions/task-started.lambda.ts",
+    "bundle:EcsServicePublisher/task-stopping.lambda": {
+      "name": "bundle:EcsServicePublisher/task-stopping.lambda",
+      "description": "Create a JavaScript bundle from src/EcsServicePublisher/task-stopping.lambda.ts",
       "steps": [
         {
-          "exec": "esbuild --bundle src/functions/task-started.lambda.ts --target=\"node16\" --platform=\"node\" --outfile=\"assets/functions/task-started.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:aws-sdk"
+          "exec": "esbuild --bundle src/EcsServicePublisher/task-stopping.lambda.ts --target=\"node16\" --platform=\"node\" --outfile=\"assets/EcsServicePublisher/task-stopping.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:aws-sdk"
         }
       ]
     },
-    "bundle:functions/task-started.lambda:watch": {
-      "name": "bundle:functions/task-started.lambda:watch",
-      "description": "Continuously update the JavaScript bundle from src/functions/task-started.lambda.ts",
+    "bundle:EcsServicePublisher/task-stopping.lambda:watch": {
+      "name": "bundle:EcsServicePublisher/task-stopping.lambda:watch",
+      "description": "Continuously update the JavaScript bundle from src/EcsServicePublisher/task-stopping.lambda.ts",
       "steps": [
         {
-          "exec": "esbuild --bundle src/functions/task-started.lambda.ts --target=\"node16\" --platform=\"node\" --outfile=\"assets/functions/task-started.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:aws-sdk --watch"
+          "exec": "esbuild --bundle src/EcsServicePublisher/task-stopping.lambda.ts --target=\"node16\" --platform=\"node\" --outfile=\"assets/EcsServicePublisher/task-stopping.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:aws-sdk --watch"
         }
       ]
     },
-    "bundle:functions/task-stopping.lambda": {
-      "name": "bundle:functions/task-stopping.lambda",
-      "description": "Create a JavaScript bundle from src/functions/task-stopping.lambda.ts",
+    "bundle:EcsServicePublisher/task-sync.lambda": {
+      "name": "bundle:EcsServicePublisher/task-sync.lambda",
+      "description": "Create a JavaScript bundle from src/EcsServicePublisher/task-sync.lambda.ts",
       "steps": [
         {
-          "exec": "esbuild --bundle src/functions/task-stopping.lambda.ts --target=\"node16\" --platform=\"node\" --outfile=\"assets/functions/task-stopping.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:aws-sdk"
+          "exec": "esbuild --bundle src/EcsServicePublisher/task-sync.lambda.ts --target=\"node16\" --platform=\"node\" --outfile=\"assets/EcsServicePublisher/task-sync.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:aws-sdk"
         }
       ]
     },
-    "bundle:functions/task-stopping.lambda:watch": {
-      "name": "bundle:functions/task-stopping.lambda:watch",
-      "description": "Continuously update the JavaScript bundle from src/functions/task-stopping.lambda.ts",
+    "bundle:EcsServicePublisher/task-sync.lambda:watch": {
+      "name": "bundle:EcsServicePublisher/task-sync.lambda:watch",
+      "description": "Continuously update the JavaScript bundle from src/EcsServicePublisher/task-sync.lambda.ts",
       "steps": [
         {
-          "exec": "esbuild --bundle src/functions/task-stopping.lambda.ts --target=\"node16\" --platform=\"node\" --outfile=\"assets/functions/task-stopping.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:aws-sdk --watch"
+          "exec": "esbuild --bundle src/EcsServicePublisher/task-sync.lambda.ts --target=\"node16\" --platform=\"node\" --outfile=\"assets/EcsServicePublisher/task-sync.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:aws-sdk --watch"
+        }
+      ]
+    },
+    "bundle:Route53Writer/gc.lambda": {
+      "name": "bundle:Route53Writer/gc.lambda",
+      "description": "Create a JavaScript bundle from src/Route53Writer/gc.lambda.ts",
+      "steps": [
+        {
+          "exec": "esbuild --bundle src/Route53Writer/gc.lambda.ts --target=\"node16\" --platform=\"node\" --outfile=\"assets/Route53Writer/gc.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:aws-sdk"
+        }
+      ]
+    },
+    "bundle:Route53Writer/gc.lambda:watch": {
+      "name": "bundle:Route53Writer/gc.lambda:watch",
+      "description": "Continuously update the JavaScript bundle from src/Route53Writer/gc.lambda.ts",
+      "steps": [
+        {
+          "exec": "esbuild --bundle src/Route53Writer/gc.lambda.ts --target=\"node16\" --platform=\"node\" --outfile=\"assets/Route53Writer/gc.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:aws-sdk --watch"
+        }
+      ]
+    },
+    "bundle:Route53Writer/stream-handler.lambda": {
+      "name": "bundle:Route53Writer/stream-handler.lambda",
+      "description": "Create a JavaScript bundle from src/Route53Writer/stream-handler.lambda.ts",
+      "steps": [
+        {
+          "exec": "esbuild --bundle src/Route53Writer/stream-handler.lambda.ts --target=\"node16\" --platform=\"node\" --outfile=\"assets/Route53Writer/stream-handler.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:aws-sdk"
+        }
+      ]
+    },
+    "bundle:Route53Writer/stream-handler.lambda:watch": {
+      "name": "bundle:Route53Writer/stream-handler.lambda:watch",
+      "description": "Continuously update the JavaScript bundle from src/Route53Writer/stream-handler.lambda.ts",
+      "steps": [
+        {
+          "exec": "esbuild --bundle src/Route53Writer/stream-handler.lambda.ts --target=\"node16\" --platform=\"node\" --outfile=\"assets/Route53Writer/stream-handler.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:aws-sdk --watch"
         }
       ]
     },
@@ -245,6 +287,14 @@
         }
       ]
     },
+    "integ:main:dev": {
+      "name": "integ:main:dev",
+      "steps": [
+        {
+          "exec": "cdk watch --app \"ts-node -P tsconfig.dev.json test/main.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata '**' -o test/.tmp/main.integ/deploy.cdk.out --hotswap-fallback"
+        }
+      ]
+    },
     "integ:main:snapshot": {
       "name": "integ:main:snapshot",
       "description": "update snapshot for integration test \"main\"",
@@ -357,13 +407,13 @@
           "exec": "yarn upgrade npm-check-updates"
         },
         {
-          "exec": "npm-check-updates --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@aws-lambda-powertools/tracer,@aws-sdk/client-dynamodb,@aws-sdk/client-ec2,@aws-sdk/client-ecs,@aws-sdk/client-route-53,@aws-sdk/lib-dynamodb,@middy/core,@types/aws-lambda,@types/jest,@types/node,@typescript-eslint/eslint-plugin,@typescript-eslint/parser,aws-cdk,electrodb,esbuild,eslint-import-resolver-node,eslint-import-resolver-typescript,eslint-plugin-import,eslint,jest,jest-junit,jsii-diff,jsii-docgen,jsii-pacmak,npm-check-updates,projen,ts-jest,ts-node,typescript,zod,aws-cdk-lib,constructs"
+          "exec": "npm-check-updates --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@aws-lambda-powertools/logger,@aws-lambda-powertools/tracer,@aws-sdk/client-dynamodb,@aws-sdk/client-ec2,@aws-sdk/client-ecs,@aws-sdk/client-route-53,@aws-sdk/lib-dynamodb,@middy/core,@types/aws-lambda,@types/jest,@types/node,@typescript-eslint/eslint-plugin,@typescript-eslint/parser,aws-cdk,electrodb,esbuild,eslint-import-resolver-node,eslint-import-resolver-typescript,eslint-plugin-import,eslint,jest,jest-junit,jsii-diff,jsii-docgen,jsii-pacmak,npm-check-updates,projen,ts-jest,ts-node,typescript,zod,aws-cdk-lib,constructs"
         },
         {
           "exec": "yarn install --check-files"
         },
         {
-          "exec": "yarn upgrade @aws-lambda-powertools/tracer @aws-sdk/client-dynamodb @aws-sdk/client-ec2 @aws-sdk/client-ecs @aws-sdk/client-route-53 @aws-sdk/lib-dynamodb @middy/core @types/aws-lambda @types/jest @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser aws-cdk electrodb esbuild eslint-import-resolver-node eslint-import-resolver-typescript eslint-plugin-import eslint jest jest-junit jsii-diff jsii-docgen jsii-pacmak npm-check-updates projen ts-jest ts-node typescript zod aws-cdk-lib constructs"
+          "exec": "yarn upgrade @aws-lambda-powertools/logger @aws-lambda-powertools/tracer @aws-sdk/client-dynamodb @aws-sdk/client-ec2 @aws-sdk/client-ecs @aws-sdk/client-route-53 @aws-sdk/lib-dynamodb @middy/core @types/aws-lambda @types/jest @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser aws-cdk electrodb esbuild eslint-import-resolver-node eslint-import-resolver-typescript eslint-plugin-import eslint jest jest-junit jsii-diff jsii-docgen jsii-pacmak npm-check-updates projen ts-jest ts-node typescript zod aws-cdk-lib constructs"
         },
         {
           "exec": "npx projen"

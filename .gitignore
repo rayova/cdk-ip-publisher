@@ -49,9 +49,11 @@ junit.xml
 tsconfig.json
 !/API.md
 /assets/
-!/src/functions/database-outbox-function.ts
-!/src/functions/task-started-function.ts
-!/src/functions/task-stopping-function.ts
+!/src/EcsServicePublisher/task-started-function.ts
+!/src/EcsServicePublisher/task-stopping-function.ts
+!/src/EcsServicePublisher/task-sync-function.ts
+!/src/Route53Writer/gc-function.ts
+!/src/Route53Writer/stream-handler-function.ts
 test/.tmp
 test/main.integ.snapshot/asset.*
 test/main.integ.snapshot/**/asset.*

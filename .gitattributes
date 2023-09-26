@@ -19,8 +19,10 @@
 /cdk.json linguist-generated
 /LICENSE linguist-generated
 /package.json linguist-generated
-/src/functions/database-outbox-function.ts linguist-generated
-/src/functions/task-started-function.ts linguist-generated
-/src/functions/task-stopping-function.ts linguist-generated
+/src/EcsServicePublisher/task-started-function.ts linguist-generated
+/src/EcsServicePublisher/task-stopping-function.ts linguist-generated
+/src/EcsServicePublisher/task-sync-function.ts linguist-generated
+/src/Route53Writer/gc-function.ts linguist-generated
+/src/Route53Writer/stream-handler-function.ts linguist-generated
 /tsconfig.dev.json linguist-generated
 /yarn.lock linguist-generated

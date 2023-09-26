@@ -317,7 +317,7 @@
     "Name": "cdk-ecs-dns.dev.wheatstalk.ca."
    }
   },
-  "DnsManager2Table2074A9A9": {
+  "DnsManager3Table042266D0": {
    "Type": "AWS::DynamoDB::Table",
    "Properties": {
     "AttributeDefinitions": [
@@ -331,6 +331,24 @@
      }
     ],
     "BillingMode": "PAY_PER_REQUEST",
+    "GlobalSecondaryIndexes": [
+     {
+      "IndexName": "gsi1",
+      "KeySchema": [
+       {
+        "AttributeName": "sk",
+        "KeyType": "HASH"
+       },
+       {
+        "AttributeName": "pk",
+        "KeyType": "RANGE"
+       }
+      ],
+      "Projection": {
+       "ProjectionType": "ALL"
+      }
+     }
+    ],
     "KeySchema": [
      {
       "AttributeName": "pk",
@@ -342,13 +360,17 @@
      }
     ],
     "StreamSpecification": {
-     "StreamViewType": "NEW_IMAGE"
+     "StreamViewType": "NEW_AND_OLD_IMAGES"
+    },
+    "TimeToLiveSpecification": {
+     "AttributeName": "expiresAt",
+     "Enabled": true
     }
    },
    "UpdateReplacePolicy": "Delete",
    "DeletionPolicy": "Delete"
   },
-  "DnsManager2Route53WriterStreamHandlerServiceRole7D38E64B": {
+  "DnsManager3Route53WriterStreamHandlerServiceRoleCC2E45B4": {
    "Type": "AWS::IAM::Role",
    "Properties": {
     "AssumeRolePolicyDocument": {
@@ -379,7 +401,7 @@
     ]
    }
   },
-  "DnsManager2Route53WriterStreamHandlerServiceRoleDefaultPolicy6762EAF8": {
+  "DnsManager3Route53WriterStreamHandlerServiceRoleDefaultPolicyF2E2C8F7": {
    "Type": "AWS::IAM::Policy",
    "Properties": {
     "PolicyDocument": {
@@ -414,7 +436,7 @@
        "Effect": "Allow",
        "Resource": {
         "Fn::GetAtt": [
-         "DnsManager2Table2074A9A9",
+         "DnsManager3Table042266D0",
          "StreamArn"
         ]
        }
@@ -422,24 +444,24 @@
      ],
      "Version": "2012-10-17"
     },
-    "PolicyName": "DnsManager2Route53WriterStreamHandlerServiceRoleDefaultPolicy6762EAF8",
+    "PolicyName": "DnsManager3Route53WriterStreamHandlerServiceRoleDefaultPolicyF2E2C8F7",
     "Roles": [
      {
-      "Ref": "DnsManager2Route53WriterStreamHandlerServiceRole7D38E64B"
+      "Ref": "DnsManager3Route53WriterStreamHandlerServiceRoleCC2E45B4"
      }
     ]
    }
   },
-  "DnsManager2Route53WriterStreamHandlerD4A2B309": {
+  "DnsManager3Route53WriterStreamHandler32A23DD4": {
    "Type": "AWS::Lambda::Function",
    "Properties": {
     "Code": {
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "8d4c73a2a9eb70b6b40f8a2eea963bf03d1c11ba0b29d753bd83f2537954153d.zip"
+     "S3Key": "d2e70dd2fbb27c843ce9bbd786f15d8aab15a943cbe2dacf95858385d271d9d3.zip"
     },
-    "Description": "src/functions/database-outbox.lambda.ts",
+    "Description": "src/Route53Writer/stream-handler.lambda.ts",
     "Environment": {
      "Variables": {
       "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1"
@@ -448,7 +470,7 @@
     "Handler": "index.handler",
     "Role": {
      "Fn::GetAtt": [
-      "DnsManager2Route53WriterStreamHandlerServiceRole7D38E64B",
+      "DnsManager3Route53WriterStreamHandlerServiceRoleCC2E45B4",
       "Arn"
      ]
     },
@@ -458,28 +480,51 @@
     }
    },
    "DependsOn": [
-    "DnsManager2Route53WriterStreamHandlerServiceRoleDefaultPolicy6762EAF8",
-    "DnsManager2Route53WriterStreamHandlerServiceRole7D38E64B"
+    "DnsManager3Route53WriterStreamHandlerServiceRoleDefaultPolicyF2E2C8F7",
+    "DnsManager3Route53WriterStreamHandlerServiceRoleCC2E45B4"
    ]
   },
-  "DnsManager2Route53WriterStreamHandlerDynamoDBEventSourceintegcdkecsdnsDnsManager2Table324922B795D739A9": {
+  "DnsManager3Route53WriterStreamHandlerDynamoDBEventSourceintegcdkecsdnsDnsManager3TableB2BCBC1E9E331B38": {
    "Type": "AWS::Lambda::EventSourceMapping",
    "Properties": {
     "BatchSize": 1000,
     "EventSourceArn": {
      "Fn::GetAtt": [
-      "DnsManager2Table2074A9A9",
+      "DnsManager3Table042266D0",
       "StreamArn"
      ]
     },
     "FunctionName": {
-     "Ref": "DnsManager2Route53WriterStreamHandlerD4A2B309"
+     "Ref": "DnsManager3Route53WriterStreamHandler32A23DD4"
     },
     "MaximumBatchingWindowInSeconds": 5,
     "StartingPosition": "TRIM_HORIZON"
    }
   },
-  "DnsManager2exampleTaskStoppingServiceRole5C83E1CF": {
+  "DnsManager3Route53WriterStreamHandlerLogRetention6C45D0CB": {
+   "Type": "Custom::LogRetention",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A",
+      "Arn"
+     ]
+    },
+    "LogGroupName": {
+     "Fn::Join": [
+      "",
+      [
+       "/aws/lambda/",
+       {
+        "Ref": "DnsManager3Route53WriterStreamHandler32A23DD4"
+       }
+      ]
+     ]
+    },
+    "RetentionInDays": 7
+   }
+  },
+  "DnsManager3Route53WriterGcFunctionServiceRole66230928": {
    "Type": "AWS::IAM::Role",
    "Properties": {
     "AssumeRolePolicyDocument": {
@@ -510,13 +555,24 @@
     ]
    }
   },
-  "DnsManager2exampleTaskStoppingServiceRoleDefaultPolicy562BD360": {
+  "DnsManager3Route53WriterGcFunctionServiceRoleDefaultPolicy66622D13": {
    "Type": "AWS::IAM::Policy",
    "Properties": {
     "PolicyDocument": {
      "Statement": [
       {
-       "Action": "ec2:DescribeNetworkInterfaces",
+       "Action": [
+        "route53:ChangeResourceRecordSets",
+        "route53:ListResourceRecordSets"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": [
+        "xray:PutTraceSegments",
+        "xray:PutTelemetryRecords"
+       ],
        "Effect": "Allow",
        "Resource": "*"
       },
@@ -539,63 +595,74 @@
        "Resource": [
         {
          "Fn::GetAtt": [
-          "DnsManager2Table2074A9A9",
+          "DnsManager3Table042266D0",
           "Arn"
          ]
         },
         {
-         "Ref": "AWS::NoValue"
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "DnsManager3Table042266D0",
+             "Arn"
+            ]
+           },
+           "/index/*"
+          ]
+         ]
         }
        ]
       }
      ],
      "Version": "2012-10-17"
     },
-    "PolicyName": "DnsManager2exampleTaskStoppingServiceRoleDefaultPolicy562BD360",
+    "PolicyName": "DnsManager3Route53WriterGcFunctionServiceRoleDefaultPolicy66622D13",
     "Roles": [
      {
-      "Ref": "DnsManager2exampleTaskStoppingServiceRole5C83E1CF"
+      "Ref": "DnsManager3Route53WriterGcFunctionServiceRole66230928"
      }
     ]
    }
   },
-  "DnsManager2exampleTaskStoppingCD643596": {
+  "DnsManager3Route53WriterGcFunction1C9E4E09": {
    "Type": "AWS::Lambda::Function",
    "Properties": {
     "Code": {
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "58835d9ca3fbc46e7de629843035b3a18dafc9a82778505eabebd79411ef8080.zip"
+     "S3Key": "0e58d14c6c9c27b8637636ba8b3fa3033a126aa16d56705273f68e9f49aca867.zip"
     },
-    "Description": "src/functions/task-stopping.lambda.ts",
+    "Description": "src/Route53Writer/gc.lambda.ts",
     "Environment": {
      "Variables": {
       "TABLE": {
-       "Ref": "DnsManager2Table2074A9A9"
+       "Ref": "DnsManager3Table042266D0"
       },
-      "HOSTED_ZONE_ID": {
-       "Ref": "HostedZoneDB99F866"
-      },
-      "RECORD_NAME": "example.cdk-ecs-dns.dev.wheatstalk.ca",
       "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1"
      }
     },
     "Handler": "index.handler",
     "Role": {
      "Fn::GetAtt": [
-      "DnsManager2exampleTaskStoppingServiceRole5C83E1CF",
+      "DnsManager3Route53WriterGcFunctionServiceRole66230928",
       "Arn"
      ]
     },
-    "Runtime": "nodejs16.x"
+    "Runtime": "nodejs16.x",
+    "Timeout": 900,
+    "TracingConfig": {
+     "Mode": "Active"
+    }
    },
    "DependsOn": [
-    "DnsManager2exampleTaskStoppingServiceRoleDefaultPolicy562BD360",
-    "DnsManager2exampleTaskStoppingServiceRole5C83E1CF"
+    "DnsManager3Route53WriterGcFunctionServiceRoleDefaultPolicy66622D13",
+    "DnsManager3Route53WriterGcFunctionServiceRole66230928"
    ]
   },
-  "DnsManager2exampleTaskStoppingLogRetentionFDDFD9F3": {
+  "DnsManager3Route53WriterGcFunctionLogRetention9D165939": {
    "Type": "Custom::LogRetention",
    "Properties": {
     "ServiceToken": {
@@ -610,7 +677,7 @@
       [
        "/aws/lambda/",
        {
-        "Ref": "DnsManager2exampleTaskStoppingCD643596"
+        "Ref": "DnsManager3Route53WriterGcFunction1C9E4E09"
        }
       ]
      ]
@@ -618,7 +685,7 @@
     "RetentionInDays": 7
    }
   },
-  "DnsManager2exampleTaskStartedServiceRole8F223E36": {
+  "DnsManager3Route53WriterProviderframeworkonEventServiceRole7F4B5FBA": {
    "Type": "AWS::IAM::Role",
    "Properties": {
     "AssumeRolePolicyDocument": {
@@ -649,13 +716,165 @@
     ]
    }
   },
-  "DnsManager2exampleTaskStartedServiceRoleDefaultPolicy78A4C1F8": {
+  "DnsManager3Route53WriterProviderframeworkonEventServiceRoleDefaultPolicy3D5D7311": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "lambda:InvokeFunction",
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "DnsManager3Route53WriterGcFunction1C9E4E09",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "DnsManager3Route53WriterGcFunction1C9E4E09",
+             "Arn"
+            ]
+           },
+           ":*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "DnsManager3Route53WriterProviderframeworkonEventServiceRoleDefaultPolicy3D5D7311",
+    "Roles": [
+     {
+      "Ref": "DnsManager3Route53WriterProviderframeworkonEventServiceRole7F4B5FBA"
+     }
+    ]
+   }
+  },
+  "DnsManager3Route53WriterProviderframeworkonEvent2A41B2F9": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "7382a0addb9f34974a1ea6c6c9b063882af874828f366f5c93b2b7b64db15c94.zip"
+    },
+    "Description": "AWS CDK resource provider framework - onEvent (integ-cdk-ecs-dns/DnsManager3/Route53Writer/Provider)",
+    "Environment": {
+     "Variables": {
+      "USER_ON_EVENT_FUNCTION_ARN": {
+       "Fn::GetAtt": [
+        "DnsManager3Route53WriterGcFunction1C9E4E09",
+        "Arn"
+       ]
+      }
+     }
+    },
+    "Handler": "framework.onEvent",
+    "Role": {
+     "Fn::GetAtt": [
+      "DnsManager3Route53WriterProviderframeworkonEventServiceRole7F4B5FBA",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs18.x",
+    "Timeout": 900
+   },
+   "DependsOn": [
+    "DnsManager3Route53WriterProviderframeworkonEventServiceRoleDefaultPolicy3D5D7311",
+    "DnsManager3Route53WriterProviderframeworkonEventServiceRole7F4B5FBA"
+   ]
+  },
+  "DnsManager3Route53WriterCustomResourceCA0EA948": {
+   "Type": "Custom::Route53WriterGC",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "DnsManager3Route53WriterProviderframeworkonEvent2A41B2F9",
+      "Arn"
+     ]
+    },
+    "RegisteredRecords": [
+     {
+      "HostedZoneId": {
+       "Ref": "HostedZoneDB99F866"
+      },
+      "Name": "yeah-hi9"
+     }
+    ]
+   },
+   "DependsOn": [
+    "DnsManager3Route53WriterStreamHandlerDynamoDBEventSourceintegcdkecsdnsDnsManager3TableB2BCBC1E9E331B38",
+    "DnsManager3Route53WriterStreamHandlerLogRetention6C45D0CB",
+    "DnsManager3Route53WriterStreamHandler32A23DD4",
+    "DnsManager3Route53WriterStreamHandlerServiceRoleDefaultPolicyF2E2C8F7",
+    "DnsManager3Route53WriterStreamHandlerServiceRoleCC2E45B4"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete"
+  },
+  "DnsManager3exampleTaskStoppingServiceRole476C7C78": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   }
+  },
+  "DnsManager3exampleTaskStoppingServiceRoleDefaultPolicyBC038D48": {
    "Type": "AWS::IAM::Policy",
    "Properties": {
     "PolicyDocument": {
      "Statement": [
       {
        "Action": "ec2:DescribeNetworkInterfaces",
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": [
+        "ecs:DescribeTasks",
+        "ecs:ListTasks"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": [
+        "xray:PutTraceSegments",
+        "xray:PutTelemetryRecords"
+       ],
        "Effect": "Allow",
        "Resource": "*"
       },
@@ -678,63 +897,91 @@
        "Resource": [
         {
          "Fn::GetAtt": [
-          "DnsManager2Table2074A9A9",
+          "DnsManager3Table042266D0",
           "Arn"
          ]
         },
         {
-         "Ref": "AWS::NoValue"
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "DnsManager3Table042266D0",
+             "Arn"
+            ]
+           },
+           "/index/*"
+          ]
+         ]
         }
        ]
       }
      ],
      "Version": "2012-10-17"
     },
-    "PolicyName": "DnsManager2exampleTaskStartedServiceRoleDefaultPolicy78A4C1F8",
+    "PolicyName": "DnsManager3exampleTaskStoppingServiceRoleDefaultPolicyBC038D48",
     "Roles": [
      {
-      "Ref": "DnsManager2exampleTaskStartedServiceRole8F223E36"
+      "Ref": "DnsManager3exampleTaskStoppingServiceRole476C7C78"
      }
     ]
    }
   },
-  "DnsManager2exampleTaskStarted5C2C930B": {
+  "DnsManager3exampleTaskStopping7D0377B6": {
    "Type": "AWS::Lambda::Function",
    "Properties": {
     "Code": {
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "c4db0d9fcff63a74905e9b92198441c9a57088a79957d25885d615555211447f.zip"
+     "S3Key": "38d47ecf02b694d324da400d47dae4ea07193c0ee775e858a4fce1b83b6f62b9.zip"
     },
-    "Description": "src/functions/task-started.lambda.ts",
+    "Description": "src/EcsServicePublisher/task-stopping.lambda.ts",
     "Environment": {
      "Variables": {
       "TABLE": {
-       "Ref": "DnsManager2Table2074A9A9"
+       "Ref": "DnsManager3Table042266D0"
       },
       "HOSTED_ZONE_ID": {
        "Ref": "HostedZoneDB99F866"
       },
-      "RECORD_NAME": "example.cdk-ecs-dns.dev.wheatstalk.ca",
+      "RECORD_NAME": "yeah-hi9.cdk-ecs-dns.dev.wheatstalk.ca",
+      "CLUSTER_ARN": {
+       "Fn::GetAtt": [
+        "ClusterEB0386A7",
+        "Arn"
+       ]
+      },
+      "SERVICE_NAME": {
+       "Fn::GetAtt": [
+        "ServiceD69D759B",
+        "Name"
+       ]
+      },
       "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1"
      }
     },
     "Handler": "index.handler",
+    "MemorySize": 512,
     "Role": {
      "Fn::GetAtt": [
-      "DnsManager2exampleTaskStartedServiceRole8F223E36",
+      "DnsManager3exampleTaskStoppingServiceRole476C7C78",
       "Arn"
      ]
     },
-    "Runtime": "nodejs16.x"
+    "Runtime": "nodejs16.x",
+    "Timeout": 60,
+    "TracingConfig": {
+     "Mode": "Active"
+    }
    },
    "DependsOn": [
-    "DnsManager2exampleTaskStartedServiceRoleDefaultPolicy78A4C1F8",
-    "DnsManager2exampleTaskStartedServiceRole8F223E36"
+    "DnsManager3exampleTaskStoppingServiceRoleDefaultPolicyBC038D48",
+    "DnsManager3exampleTaskStoppingServiceRole476C7C78"
    ]
   },
-  "DnsManager2exampleTaskStartedLogRetention6140BF79": {
+  "DnsManager3exampleTaskStoppingLogRetention81EF58E9": {
    "Type": "Custom::LogRetention",
    "Properties": {
     "ServiceToken": {
@@ -749,7 +996,7 @@
       [
        "/aws/lambda/",
        {
-        "Ref": "DnsManager2exampleTaskStarted5C2C930B"
+        "Ref": "DnsManager3exampleTaskStopping7D0377B6"
        }
       ]
      ]
@@ -757,7 +1004,381 @@
     "RetentionInDays": 7
    }
   },
-  "DnsManager2exampleTaskStoppingRule9B45DCDB": {
+  "DnsManager3exampleTaskStartedServiceRoleC2C949E4": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   }
+  },
+  "DnsManager3exampleTaskStartedServiceRoleDefaultPolicy5539313D": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "ec2:DescribeNetworkInterfaces",
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": [
+        "ecs:DescribeTasks",
+        "ecs:ListTasks"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": [
+        "xray:PutTraceSegments",
+        "xray:PutTelemetryRecords"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:Query",
+        "dynamodb:GetItem",
+        "dynamodb:Scan",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:BatchWriteItem",
+        "dynamodb:PutItem",
+        "dynamodb:UpdateItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "DnsManager3Table042266D0",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "DnsManager3Table042266D0",
+             "Arn"
+            ]
+           },
+           "/index/*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "DnsManager3exampleTaskStartedServiceRoleDefaultPolicy5539313D",
+    "Roles": [
+     {
+      "Ref": "DnsManager3exampleTaskStartedServiceRoleC2C949E4"
+     }
+    ]
+   }
+  },
+  "DnsManager3exampleTaskStarted11A643A8": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "4c84122f3d419541a475f16bfb38bbd4c421956ef4a257e3c4404fd7fd4880e4.zip"
+    },
+    "Description": "src/EcsServicePublisher/task-started.lambda.ts",
+    "Environment": {
+     "Variables": {
+      "TABLE": {
+       "Ref": "DnsManager3Table042266D0"
+      },
+      "HOSTED_ZONE_ID": {
+       "Ref": "HostedZoneDB99F866"
+      },
+      "RECORD_NAME": "yeah-hi9.cdk-ecs-dns.dev.wheatstalk.ca",
+      "CLUSTER_ARN": {
+       "Fn::GetAtt": [
+        "ClusterEB0386A7",
+        "Arn"
+       ]
+      },
+      "SERVICE_NAME": {
+       "Fn::GetAtt": [
+        "ServiceD69D759B",
+        "Name"
+       ]
+      },
+      "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1"
+     }
+    },
+    "Handler": "index.handler",
+    "MemorySize": 512,
+    "Role": {
+     "Fn::GetAtt": [
+      "DnsManager3exampleTaskStartedServiceRoleC2C949E4",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs16.x",
+    "Timeout": 60,
+    "TracingConfig": {
+     "Mode": "Active"
+    }
+   },
+   "DependsOn": [
+    "DnsManager3exampleTaskStartedServiceRoleDefaultPolicy5539313D",
+    "DnsManager3exampleTaskStartedServiceRoleC2C949E4"
+   ]
+  },
+  "DnsManager3exampleTaskStartedLogRetentionC333FAC6": {
+   "Type": "Custom::LogRetention",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A",
+      "Arn"
+     ]
+    },
+    "LogGroupName": {
+     "Fn::Join": [
+      "",
+      [
+       "/aws/lambda/",
+       {
+        "Ref": "DnsManager3exampleTaskStarted11A643A8"
+       }
+      ]
+     ]
+    },
+    "RetentionInDays": 7
+   }
+  },
+  "DnsManager3exampleTaskSyncServiceRoleBC9FA8BA": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   }
+  },
+  "DnsManager3exampleTaskSyncServiceRoleDefaultPolicy0E1D928F": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "ec2:DescribeNetworkInterfaces",
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": [
+        "ecs:DescribeTasks",
+        "ecs:ListTasks"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": [
+        "xray:PutTraceSegments",
+        "xray:PutTelemetryRecords"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:Query",
+        "dynamodb:GetItem",
+        "dynamodb:Scan",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:BatchWriteItem",
+        "dynamodb:PutItem",
+        "dynamodb:UpdateItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "DnsManager3Table042266D0",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "DnsManager3Table042266D0",
+             "Arn"
+            ]
+           },
+           "/index/*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "DnsManager3exampleTaskSyncServiceRoleDefaultPolicy0E1D928F",
+    "Roles": [
+     {
+      "Ref": "DnsManager3exampleTaskSyncServiceRoleBC9FA8BA"
+     }
+    ]
+   }
+  },
+  "DnsManager3exampleTaskSync4029E245": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "d9ed8826aca5c57bf31df541075fce098a07a1a40e5cc8e0f7a602870a012e4b.zip"
+    },
+    "Description": "src/EcsServicePublisher/task-sync.lambda.ts",
+    "Environment": {
+     "Variables": {
+      "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+      "CLUSTER_ARN": {
+       "Fn::GetAtt": [
+        "ClusterEB0386A7",
+        "Arn"
+       ]
+      },
+      "HOSTED_ZONE_ID": {
+       "Ref": "HostedZoneDB99F866"
+      },
+      "RECORD_NAME": "yeah-hi9.cdk-ecs-dns.dev.wheatstalk.ca",
+      "SERVICE_NAME": {
+       "Fn::GetAtt": [
+        "ServiceD69D759B",
+        "Name"
+       ]
+      },
+      "TABLE": {
+       "Ref": "DnsManager3Table042266D0"
+      }
+     }
+    },
+    "Handler": "index.handler",
+    "MemorySize": 512,
+    "Role": {
+     "Fn::GetAtt": [
+      "DnsManager3exampleTaskSyncServiceRoleBC9FA8BA",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs16.x",
+    "Timeout": 60,
+    "TracingConfig": {
+     "Mode": "Active"
+    }
+   },
+   "DependsOn": [
+    "DnsManager3exampleTaskSyncServiceRoleDefaultPolicy0E1D928F",
+    "DnsManager3exampleTaskSyncServiceRoleBC9FA8BA"
+   ]
+  },
+  "DnsManager3exampleTaskSyncLogRetentionF2704AD3": {
+   "Type": "Custom::LogRetention",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A",
+      "Arn"
+     ]
+    },
+    "LogGroupName": {
+     "Fn::Join": [
+      "",
+      [
+       "/aws/lambda/",
+       {
+        "Ref": "DnsManager3exampleTaskSync4029E245"
+       }
+      ]
+     ]
+    },
+    "RetentionInDays": 7
+   }
+  },
+  "DnsManager3exampleTaskSyncCurrentVersion5C567A45fe8a988e88ec083442ddad2829589a60": {
+   "Type": "AWS::Lambda::Version",
+   "Properties": {
+    "FunctionName": {
+     "Ref": "DnsManager3exampleTaskSync4029E245"
+    }
+   }
+  },
+  "DnsManager3exampleTaskStoppingRule381C2BA5": {
    "Type": "AWS::Events::Rule",
    "Properties": {
     "EventPattern": {
@@ -805,38 +1426,38 @@
      {
       "Arn": {
        "Fn::GetAtt": [
-        "DnsManager2exampleTaskStoppingCD643596",
+        "DnsManager3exampleTaskStopping7D0377B6",
         "Arn"
        ]
       },
       "Id": "Target0",
       "RetryPolicy": {
-       "MaximumRetryAttempts": 1
+       "MaximumRetryAttempts": 50
       }
      }
     ]
    }
   },
-  "DnsManager2exampleTaskStoppingRuleAllowEventRuleintegcdkecsdnsDnsManager2exampleTaskStopping667C70757BD2D011": {
+  "DnsManager3exampleTaskStoppingRuleAllowEventRuleintegcdkecsdnsDnsManager3exampleTaskStoppingC2FD8926DEE97347": {
    "Type": "AWS::Lambda::Permission",
    "Properties": {
     "Action": "lambda:InvokeFunction",
     "FunctionName": {
      "Fn::GetAtt": [
-      "DnsManager2exampleTaskStoppingCD643596",
+      "DnsManager3exampleTaskStopping7D0377B6",
       "Arn"
      ]
     },
     "Principal": "events.amazonaws.com",
     "SourceArn": {
      "Fn::GetAtt": [
-      "DnsManager2exampleTaskStoppingRule9B45DCDB",
+      "DnsManager3exampleTaskStoppingRule381C2BA5",
       "Arn"
      ]
     }
    }
   },
-  "DnsManager2exampleTaskStartedRuleD933E60E": {
+  "DnsManager3exampleTaskStartedRule49C68078": {
    "Type": "AWS::Events::Rule",
    "Properties": {
     "EventPattern": {
@@ -884,36 +1505,115 @@
      {
       "Arn": {
        "Fn::GetAtt": [
-        "DnsManager2exampleTaskStarted5C2C930B",
+        "DnsManager3exampleTaskStarted11A643A8",
         "Arn"
        ]
       },
       "Id": "Target0",
       "RetryPolicy": {
-       "MaximumRetryAttempts": 1
+       "MaximumRetryAttempts": 50
       }
      }
     ]
    }
   },
-  "DnsManager2exampleTaskStartedRuleAllowEventRuleintegcdkecsdnsDnsManager2exampleTaskStarted3465C2B17E041E2E": {
+  "DnsManager3exampleTaskStartedRuleAllowEventRuleintegcdkecsdnsDnsManager3exampleTaskStarted36FF99C306C955C8": {
    "Type": "AWS::Lambda::Permission",
    "Properties": {
     "Action": "lambda:InvokeFunction",
     "FunctionName": {
      "Fn::GetAtt": [
-      "DnsManager2exampleTaskStarted5C2C930B",
+      "DnsManager3exampleTaskStarted11A643A8",
       "Arn"
      ]
     },
     "Principal": "events.amazonaws.com",
     "SourceArn": {
      "Fn::GetAtt": [
-      "DnsManager2exampleTaskStartedRuleD933E60E",
+      "DnsManager3exampleTaskStartedRule49C68078",
       "Arn"
      ]
     }
    }
+  },
+  "DnsManager3exampleTaskSyncRule60C77326": {
+   "Type": "AWS::Events::Rule",
+   "Properties": {
+    "EventPattern": {
+     "source": [
+      "aws.ecs"
+     ],
+     "detail-type": [
+      "ECS Service Action"
+     ],
+     "detail": {
+      "eventName": [
+       "SERVICE_STEADY_STATE"
+      ],
+      "clusterArn": [
+       {
+        "Fn::GetAtt": [
+         "ClusterEB0386A7",
+         "Arn"
+        ]
+       }
+      ]
+     }
+    },
+    "State": "ENABLED",
+    "Targets": [
+     {
+      "Arn": {
+       "Fn::GetAtt": [
+        "DnsManager3exampleTaskSync4029E245",
+        "Arn"
+       ]
+      },
+      "Id": "Target0",
+      "RetryPolicy": {
+       "MaximumRetryAttempts": 50
+      }
+     }
+    ]
+   }
+  },
+  "DnsManager3exampleTaskSyncRuleAllowEventRuleintegcdkecsdnsDnsManager3exampleTaskSync5F03B819F3082AB9": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "DnsManager3exampleTaskSync4029E245",
+      "Arn"
+     ]
+    },
+    "Principal": "events.amazonaws.com",
+    "SourceArn": {
+     "Fn::GetAtt": [
+      "DnsManager3exampleTaskSyncRule60C77326",
+      "Arn"
+     ]
+    }
+   }
+  },
+  "DnsManager3exampleTaskSyncTrigger05DECCDE": {
+   "Type": "Custom::Trigger",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "AWSCDKTriggerCustomResourceProviderCustomResourceProviderHandler97BECD91",
+      "Arn"
+     ]
+    },
+    "HandlerArn": {
+     "Ref": "DnsManager3exampleTaskSyncCurrentVersion5C567A45fe8a988e88ec083442ddad2829589a60"
+    },
+    "InvocationType": "Event",
+    "Timeout": "60000",
+    "ExecuteOnHandlerChange": true
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete"
   },
   "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB": {
    "Type": "AWS::IAM::Role",
@@ -993,6 +1693,94 @@
     "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB",
     "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB"
    ]
+  },
+  "AWSCDKTriggerCustomResourceProviderCustomResourceProviderRoleE18FAF0A": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Version": "2012-10-17",
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ]
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Sub": "arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+     }
+    ],
+    "Policies": [
+     {
+      "PolicyName": "Inline",
+      "PolicyDocument": {
+       "Version": "2012-10-17",
+       "Statement": [
+        {
+         "Effect": "Allow",
+         "Action": [
+          "lambda:InvokeFunction"
+         ],
+         "Resource": [
+          {
+           "Fn::Join": [
+            "",
+            [
+             {
+              "Fn::GetAtt": [
+               "DnsManager3exampleTaskSync4029E245",
+               "Arn"
+              ]
+             },
+             ":*"
+            ]
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "AWSCDKTriggerCustomResourceProviderCustomResourceProviderHandler97BECD91": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "30d27607a2f6a97cb964228693797269365769d596600286bcb294bbb3b1844d.zip"
+    },
+    "Timeout": 900,
+    "MemorySize": 128,
+    "Handler": "__entrypoint__.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "AWSCDKTriggerCustomResourceProviderCustomResourceProviderRoleE18FAF0A",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs18.x"
+   },
+   "DependsOn": [
+    "AWSCDKTriggerCustomResourceProviderCustomResourceProviderRoleE18FAF0A"
+   ]
+  }
+ },
+ "Outputs": {
+  "HostedZoneId": {
+   "Value": {
+    "Ref": "HostedZoneDB99F866"
+   }
+  },
+  "DnsManagerPath": {
+   "Value": "integ-cdk-ecs-dns/DnsManager3"
   }
  },
  "Parameters": {

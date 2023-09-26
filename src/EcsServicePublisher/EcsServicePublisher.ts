@@ -1,7 +1,8 @@
-import { aws_dynamodb, aws_ecs, aws_events, aws_events_targets, aws_iam, aws_lambda, aws_logs, aws_route53 } from 'aws-cdk-lib';
+import { aws_dynamodb, aws_ecs, aws_events, aws_events_targets, aws_iam, aws_lambda, aws_logs, aws_route53, Duration, triggers } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-import { TaskStartedFunction } from './functions/task-started-function';
-import { TaskStoppingFunction } from './functions/task-stopping-function';
+import { TaskStartedFunction } from './task-started-function';
+import { TaskStoppingFunction } from './task-stopping-function';
+import { TaskSyncFunction } from './task-sync-function';
 
 export interface EcsServiceIpsProps {
   readonly table: aws_dynamodb.ITable;
@@ -10,7 +11,7 @@ export interface EcsServiceIpsProps {
   readonly name: string;
 }
 
-export class EcsServiceIps extends Construct {
+export class EcsServicePublisher extends Construct {
   constructor(scope: Construct, id: string, props: EcsServiceIpsProps) {
     super(scope, id);
 
@@ -21,11 +22,16 @@ export class EcsServiceIps extends Construct {
       hostedZone,
     } = props;
 
-    const taskLambdaProps: Partial<aws_lambda.FunctionProps> = {
+    const lambdaProps: Partial<aws_lambda.FunctionProps> = {
+      tracing: aws_lambda.Tracing.ACTIVE,
+      timeout: Duration.minutes(1),
+      memorySize: 512,
       environment: {
         TABLE: table.tableName,
         HOSTED_ZONE_ID: hostedZone.hostedZoneId,
         RECORD_NAME: `${name}.${hostedZone.zoneName}`,
+        CLUSTER_ARN: service.cluster.clusterArn,
+        SERVICE_NAME: service.serviceName,
       },
       initialPolicy: [
         new aws_iam.PolicyStatement({
@@ -33,19 +39,30 @@ export class EcsServiceIps extends Construct {
           actions: ['ec2:DescribeNetworkInterfaces'],
           resources: ['*'],
         }),
+        new aws_iam.PolicyStatement({
+          effect: aws_iam.Effect.ALLOW,
+          actions: ['ecs:DescribeTasks', 'ecs:ListTasks'],
+          resources: ['*'],
+        }),
       ],
       logRetention: aws_logs.RetentionDays.ONE_WEEK,
     };
 
-    const taskStoppingFunction = new TaskStoppingFunction(this, 'TaskStopping', taskLambdaProps);
+    const taskStoppingFunction = new TaskStoppingFunction(this, 'TaskStopping', lambdaProps);
     table.grantReadWriteData(taskStoppingFunction);
 
-    const taskStartedFunction = new TaskStartedFunction(this, 'TaskStarted', taskLambdaProps);
+    const taskStartedFunction = new TaskStartedFunction(this, 'TaskStarted', lambdaProps);
     table.grantReadWriteData(taskStartedFunction);
 
+    const taskSyncFunction = new TaskSyncFunction(this, 'TaskSync', lambdaProps);
+    table.grantReadWriteData(taskSyncFunction);
+
     const lambdaTargetProps: aws_events_targets.LambdaFunctionProps = {
-      retryAttempts: 1,
+      retryAttempts: 50,
+      // maxEventAge: Duration.seconds(60),
     };
+
+    // https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs_cwe_events.html#ecs_task_events
 
     new aws_events.Rule(this, 'TaskStoppingRule', {
       eventPattern: {
@@ -83,6 +100,30 @@ export class EcsServiceIps extends Construct {
           lambdaTargetProps,
         ),
       ],
+    });
+
+    new aws_events.Rule(this, 'TaskSyncRule', {
+      eventPattern: {
+        source: ['aws.ecs'],
+        detailType: ['ECS Service Action'],
+        detail: {
+          eventName: ['SERVICE_STEADY_STATE'],
+          clusterArn: [service.cluster.clusterArn],
+        },
+      },
+      targets: [
+        new aws_events_targets.LambdaFunction(
+          taskSyncFunction,
+          lambdaTargetProps,
+        ),
+      ],
+    });
+
+    new triggers.Trigger(this, 'TaskSyncTrigger', {
+      handler: taskSyncFunction,
+      timeout: taskSyncFunction.timeout,
+      invocationType: triggers.InvocationType.EVENT,
+      executeOnHandlerChange: true,
     });
   }
 }

@@ -39,7 +39,8 @@
     "node_modules/",
     "*.generated.ts",
     "coverage",
-    "src/functions/**/*",
+    "src/runtime/**/*",
+    "*.lambda.ts",
     "!.projenrc.ts",
     "!projenrc/**/*.ts"
   ],
@@ -149,9 +150,11 @@
         "devDependencies": [
           "**/test/**",
           "**/build-tools/**",
-          "src/functions/database-outbox.lambda.ts",
-          "src/functions/task-started.lambda.ts",
-          "src/functions/task-stopping.lambda.ts",
+          "src/EcsServicePublisher/task-started.lambda.ts",
+          "src/EcsServicePublisher/task-stopping.lambda.ts",
+          "src/EcsServicePublisher/task-sync.lambda.ts",
+          "src/Route53Writer/gc.lambda.ts",
+          "src/Route53Writer/stream-handler.lambda.ts",
           ".projenrc.ts",
           "projenrc/**/*.ts"
         ],

@@ -1,4 +1,4 @@
-import { App, aws_ec2, aws_ecs, aws_route53, Stack } from 'aws-cdk-lib';
+import { App, aws_ec2, aws_ecs, aws_route53, CfnOutput, Stack } from 'aws-cdk-lib';
 import { DnsManager } from '../src';
 
 const app = new App();
@@ -42,11 +42,15 @@ const hostedZone = new aws_route53.PublicHostedZone(stack, 'HostedZone', {
   zoneName: 'cdk-ecs-dns.dev.wheatstalk.ca',
 });
 
-const dnsManager = new DnsManager(stack, 'DnsManager2');
+const dnsManager = new DnsManager(stack, 'DnsManager3');
+
+new CfnOutput(stack, 'HostedZoneId', { value: hostedZone.hostedZoneId });
+new CfnOutput(stack, 'DnsManagerPath', { value: dnsManager.node.path });
 
 dnsManager.publishEcsService('example', {
   hostedZone,
-  service,
+  service: service,
+  name: 'yeah-hi9',
 });
 
 app.synth();
