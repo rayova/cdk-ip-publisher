@@ -11,7 +11,8 @@ const project = new awscdk.AwsCdkConstructLibrary({
   projenrcTs: true,
   repositoryUrl: 'https://github.com/rayova/cdk-ip-publisher.git',
 
-  release: false,
+  release: true,
+  releaseToNpm: true,
 
   devDeps: [
     '@types/aws-lambda',
@@ -44,6 +45,8 @@ const project = new awscdk.AwsCdkConstructLibrary({
   // devDeps: [],             /* Build dependencies for this module. */
   // packageName: undefined,  /* The "name" in package.json. */
 });
+
+project.package.file.addDeletionOverride('keywords');
 
 project.addGitIgnore('.idea');
 

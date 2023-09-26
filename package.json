@@ -7,6 +7,7 @@
   },
   "scripts": {
     "build": "npx projen build",
+    "bump": "npx projen bump",
     "bundle": "npx projen bundle",
     "bundle:EcsServicePublisher/task-started.lambda": "npx projen bundle:EcsServicePublisher/task-started.lambda",
     "bundle:EcsServicePublisher/task-started.lambda:watch": "npx projen bundle:EcsServicePublisher/task-started.lambda:watch",
@@ -38,8 +39,10 @@
     "post-compile": "npx projen post-compile",
     "post-upgrade": "npx projen post-upgrade",
     "pre-compile": "npx projen pre-compile",
+    "release": "npx projen release",
     "test": "npx projen test",
     "test:watch": "npx projen test:watch",
+    "unbump": "npx projen unbump",
     "upgrade": "npx projen upgrade",
     "watch": "npx projen watch",
     "projen": "npx projen"
@@ -81,6 +84,7 @@
     "jsii-rosetta": "~5.0.0",
     "npm-check-updates": "^16",
     "projen": "^0.73.30",
+    "standard-version": "^9",
     "ts-jest": "^29.1.1",
     "ts-node": "^10.9.1",
     "typescript": "^5.2.2",
@@ -90,9 +94,6 @@
     "aws-cdk-lib": "^2.97.0",
     "constructs": "^10.0.5"
   },
-  "keywords": [
-    "cdk"
-  ],
   "main": "lib/index.js",
   "license": "Apache-2.0",
   "version": "0.0.0",
