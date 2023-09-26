@@ -6,9 +6,10 @@ const project = new awscdk.AwsCdkConstructLibrary({
   cdkVersion: '2.97.0',
   defaultReleaseBranch: 'main',
   jsiiVersion: '~5.0.0',
-  name: '@rayova/cdk-ecs-addresses',
+  name: '@rayova/cdk-ip-publisher',
+  description: 'A CDK construct to publish public ECS IP addresses to Route53',
   projenrcTs: true,
-  repositoryUrl: 'https://github.com/rayova/cdk-ecs-addresses.git',
+  repositoryUrl: 'https://github.com/rayova/cdk-ip-publisher.git',
 
   release: false,
 

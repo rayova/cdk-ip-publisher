@@ -1,8 +1,9 @@
 {
-  "name": "@rayova/cdk-ecs-addresses",
+  "name": "@rayova/cdk-ip-publisher",
+  "description": "A CDK construct to publish public ECS IP addresses to Route53",
   "repository": {
     "type": "git",
-    "url": "https://github.com/rayova/cdk-ecs-addresses.git"
+    "url": "https://github.com/rayova/cdk-ip-publisher.git"
   },
   "scripts": {
     "build": "npx projen build",
