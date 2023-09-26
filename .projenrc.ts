@@ -1,4 +1,4 @@
-import { awscdk } from 'projen';
+import { awscdk, javascript } from 'projen';
 
 const project = new awscdk.AwsCdkConstructLibrary({
   author: 'Josh Kellendonk',
@@ -13,6 +13,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
 
   release: true,
   releaseToNpm: true,
+  npmAccess: javascript.NpmAccess.PUBLIC,
 
   devDeps: [
     '@types/aws-lambda',
