@@ -3,30 +3,30 @@
 
 ## Constructs <a name="Constructs" id="Constructs"></a>
 
-### DnsManager <a name="DnsManager" id="@rayova/cdk-ecs-addresses.DnsManager"></a>
+### IpPublisher <a name="IpPublisher" id="@rayova/cdk-ecs-addresses.IpPublisher"></a>
 
-#### Initializers <a name="Initializers" id="@rayova/cdk-ecs-addresses.DnsManager.Initializer"></a>
+#### Initializers <a name="Initializers" id="@rayova/cdk-ecs-addresses.IpPublisher.Initializer"></a>
 
 ```typescript
-import { DnsManager } from '@rayova/cdk-ecs-addresses'
+import { IpPublisher } from '@rayova/cdk-ecs-addresses'
 
-new DnsManager(scope: Construct, id: string)
+new IpPublisher(scope: Construct, id: string)
 ```
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#@rayova/cdk-ecs-addresses.DnsManager.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
-| <code><a href="#@rayova/cdk-ecs-addresses.DnsManager.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@rayova/cdk-ecs-addresses.IpPublisher.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#@rayova/cdk-ecs-addresses.IpPublisher.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
 
 ---
 
-##### `scope`<sup>Required</sup> <a name="scope" id="@rayova/cdk-ecs-addresses.DnsManager.Initializer.parameter.scope"></a>
+##### `scope`<sup>Required</sup> <a name="scope" id="@rayova/cdk-ecs-addresses.IpPublisher.Initializer.parameter.scope"></a>
 
 - *Type:* constructs.Construct
 
 ---
 
-##### `id`<sup>Required</sup> <a name="id" id="@rayova/cdk-ecs-addresses.DnsManager.Initializer.parameter.id"></a>
+##### `id`<sup>Required</sup> <a name="id" id="@rayova/cdk-ecs-addresses.IpPublisher.Initializer.parameter.id"></a>
 
 - *Type:* string
 
@@ -36,12 +36,12 @@ new DnsManager(scope: Construct, id: string)
 
 | **Name** | **Description** |
 | --- | --- |
-| <code><a href="#@rayova/cdk-ecs-addresses.DnsManager.toString">toString</a></code> | Returns a string representation of this construct. |
-| <code><a href="#@rayova/cdk-ecs-addresses.DnsManager.publishEcsService">publishEcsService</a></code> | *No description.* |
+| <code><a href="#@rayova/cdk-ecs-addresses.IpPublisher.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@rayova/cdk-ecs-addresses.IpPublisher.publishEcsService">publishEcsService</a></code> | *No description.* |
 
 ---
 
-##### `toString` <a name="toString" id="@rayova/cdk-ecs-addresses.DnsManager.toString"></a>
+##### `toString` <a name="toString" id="@rayova/cdk-ecs-addresses.IpPublisher.toString"></a>
 
 ```typescript
 public toString(): string
@@ -49,19 +49,19 @@ public toString(): string
 
 Returns a string representation of this construct.
 
-##### `publishEcsService` <a name="publishEcsService" id="@rayova/cdk-ecs-addresses.DnsManager.publishEcsService"></a>
+##### `publishEcsService` <a name="publishEcsService" id="@rayova/cdk-ecs-addresses.IpPublisher.publishEcsService"></a>
 
 ```typescript
 public publishEcsService(id: string, params: PublishEcsServiceParams): void
 ```
 
-###### `id`<sup>Required</sup> <a name="id" id="@rayova/cdk-ecs-addresses.DnsManager.publishEcsService.parameter.id"></a>
+###### `id`<sup>Required</sup> <a name="id" id="@rayova/cdk-ecs-addresses.IpPublisher.publishEcsService.parameter.id"></a>
 
 - *Type:* string
 
 ---
 
-###### `params`<sup>Required</sup> <a name="params" id="@rayova/cdk-ecs-addresses.DnsManager.publishEcsService.parameter.params"></a>
+###### `params`<sup>Required</sup> <a name="params" id="@rayova/cdk-ecs-addresses.IpPublisher.publishEcsService.parameter.params"></a>
 
 - *Type:* <a href="#@rayova/cdk-ecs-addresses.PublishEcsServiceParams">PublishEcsServiceParams</a>
 
@@ -71,21 +71,21 @@ public publishEcsService(id: string, params: PublishEcsServiceParams): void
 
 | **Name** | **Description** |
 | --- | --- |
-| <code><a href="#@rayova/cdk-ecs-addresses.DnsManager.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#@rayova/cdk-ecs-addresses.IpPublisher.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
 
 ---
 
-##### ~~`isConstruct`~~ <a name="isConstruct" id="@rayova/cdk-ecs-addresses.DnsManager.isConstruct"></a>
+##### ~~`isConstruct`~~ <a name="isConstruct" id="@rayova/cdk-ecs-addresses.IpPublisher.isConstruct"></a>
 
 ```typescript
-import { DnsManager } from '@rayova/cdk-ecs-addresses'
+import { IpPublisher } from '@rayova/cdk-ecs-addresses'
 
-DnsManager.isConstruct(x: any)
+IpPublisher.isConstruct(x: any)
 ```
 
 Checks if `x` is a construct.
 
-###### `x`<sup>Required</sup> <a name="x" id="@rayova/cdk-ecs-addresses.DnsManager.isConstruct.parameter.x"></a>
+###### `x`<sup>Required</sup> <a name="x" id="@rayova/cdk-ecs-addresses.IpPublisher.isConstruct.parameter.x"></a>
 
 - *Type:* any
 
@@ -97,11 +97,11 @@ Any object.
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#@rayova/cdk-ecs-addresses.DnsManager.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@rayova/cdk-ecs-addresses.IpPublisher.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
 
 ---
 
-##### `node`<sup>Required</sup> <a name="node" id="@rayova/cdk-ecs-addresses.DnsManager.property.node"></a>
+##### `node`<sup>Required</sup> <a name="node" id="@rayova/cdk-ecs-addresses.IpPublisher.property.node"></a>
 
 ```typescript
 public readonly node: Node;

@@ -43,7 +43,7 @@ export const handler = AppHandler(async () => {
       // When the record already exists, lets update it.
       ? entities.DnsRecord
         .patch(dnsRecordKey)
-        .set({ publicIps })
+        .set({ ips: publicIps })
         .add({ version: 1 })
         .where((ent, cmp) => cmp.eq(ent.version, dnsRecord.version))
         .commit()
@@ -51,7 +51,7 @@ export const handler = AppHandler(async () => {
       : entities.DnsRecord
         .create({
           ...dnsRecordKey,
-          publicIps,
+          ips: publicIps,
         })
         .commit(),
     // Upsert the latest IPs for each task.

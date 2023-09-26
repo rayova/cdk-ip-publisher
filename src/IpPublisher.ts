@@ -3,7 +3,7 @@ import { Construct } from 'constructs';
 import { EcsServicePublisher } from './EcsServicePublisher';
 import { Route53Writer } from './Route53Writer';
 
-export class DnsManager extends Construct {
+export class IpPublisher extends Construct {
   private readonly table: aws_dynamodb.Table;
   private readonly writer: Route53Writer;
 

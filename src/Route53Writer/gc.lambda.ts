@@ -80,11 +80,6 @@ async function deleteRecords() {
   await Promise.all(
     dbRecords.map(async (dnsRecord) => {
       try {
-        if (!dnsRecord.publicIps || dnsRecord.publicIps.length === 0) {
-          logger.info('Skipping record with no IPs', { record: dnsRecord });
-          return;
-        }
-
         logger.info('Deleting the DNS Record', { record: dnsRecord });
         await database.entities.DnsRecord
           .delete(dnsRecord)

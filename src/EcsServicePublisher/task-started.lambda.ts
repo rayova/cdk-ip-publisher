@@ -39,14 +39,14 @@ export const handler = AppHandler(async (event: any) => {
       ? entities.DnsRecord
         .patch(dnsRecordKey)
         .add({
-          publicIps,
+          ips: publicIps,
           version: dnsRecord.version + 1,
         }).commit()
       // When the record does not exist, lets create it.
       : entities.DnsRecord
         .create({
           ...dnsRecordKey,
-          publicIps,
+          ips: publicIps,
         })
         .commit(),
   ]).go();

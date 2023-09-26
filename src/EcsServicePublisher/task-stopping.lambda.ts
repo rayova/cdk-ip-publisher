@@ -31,7 +31,7 @@ export const handler = AppHandler(async (event: unknown) => {
         hostedZoneId: env.HOSTED_ZONE_ID,
         name: env.RECORD_NAME,
       })
-      .delete({ publicIps })
+      .delete({ ips: publicIps })
       .add({ version: 1 })
       .commit(),
   ]).go();

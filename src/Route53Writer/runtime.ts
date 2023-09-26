@@ -1,22 +1,22 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
 import { ChangeResourceRecordSetsCommand, ListResourceRecordSetsCommand, Route53Client } from '@aws-sdk/client-route-53';
-import { DnsRecord } from '../database';
+import { DnsRecord, getDnsRecordIps } from '../database';
 import { logger, tracer } from '../runtime';
 
 const r53 = new Route53Client({});
 
 export async function upsertRecordSet(dnsRecord: DnsRecord) {
-  let publicIps: string[] | undefined = dnsRecord.publicIps ?? [];
-  tracer.putMetadata('publicIps', publicIps);
+  let ips = getDnsRecordIps(dnsRecord);
+  tracer.putMetadata('ips', ips);
 
-  if (publicIps.length > 100) {
-    logger.warn(`Too many public IPs. Mitigating the risk of exceeding the maximum recordset size by truncating ${publicIps.length} records to 100.`);
-    publicIps = publicIps.slice(0, 100);
-    tracer.putMetadata('truncatedPublicIps', publicIps);
+  if (ips.length > 100) {
+    logger.warn(`Too many IPs. Mitigating the risk of exceeding the maximum recordset size by truncating ${ips.length} records to 100.`);
+    ips = ips.slice(0, 100);
+    tracer.putMetadata('ipsTruncated', ips);
   }
 
-  logger.info(`Setting ${(dnsRecord.name)} to ${publicIps.join(', ')}`);
+  logger.info(`Setting ${dnsRecord.name} to ${ips.join(', ')}`);
 
   await r53.send(
     new ChangeResourceRecordSetsCommand({
@@ -28,7 +28,7 @@ export async function upsertRecordSet(dnsRecord: DnsRecord) {
             ResourceRecordSet: {
               Type: 'A',
               Name: dnsRecord.name,
-              ResourceRecords: publicIps.map(ip => ({ Value: ip })),
+              ResourceRecords: ips.map(ip => ({ Value: ip })),
               TTL: 30,
             },
           },

@@ -1,1 +1,1 @@
-export * from './DnsManager';
+export * from './IpPublisher';

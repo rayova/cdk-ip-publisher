@@ -61,7 +61,7 @@ const DnsRecord = new Entity({
       required: true,
       default: 0,
     },
-    publicIps: {
+    ips: {
       type: 'set',
       items: 'string',
       required: true,
@@ -89,3 +89,7 @@ export const database = new Service({
   table: process.env.TABLE,
   client: DynamoDBDocumentClient.from(new DynamoDBClient({})),
 });
+
+export function getDnsRecordIps(dnsRecord: DnsRecord) {
+  return dnsRecord.ips ?? [];
+}
