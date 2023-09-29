@@ -50,6 +50,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
 project.package.file.addDeletionOverride('keywords');
 
 project.addGitIgnore('.idea');
+project.addPackageIgnore('cdk.out');
 
 const cdkConfig = new awscdk.CdkConfig(project, {
   app: '', // Required for types.
