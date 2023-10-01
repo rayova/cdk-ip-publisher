@@ -67,7 +67,7 @@
       "description": "Create a JavaScript bundle from src/EcsServicePublisher/task-started.lambda.ts",
       "steps": [
         {
-          "exec": "esbuild --bundle src/EcsServicePublisher/task-started.lambda.ts --target=\"node16\" --platform=\"node\" --outfile=\"assets/EcsServicePublisher/task-started.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:aws-sdk"
+          "exec": "esbuild --bundle src/EcsServicePublisher/task-started.lambda.ts --target=\"node18\" --platform=\"node\" --outfile=\"assets/EcsServicePublisher/task-started.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:aws-sdk --external:@aws-sdk/*"
         }
       ]
     },
@@ -76,7 +76,7 @@
       "description": "Continuously update the JavaScript bundle from src/EcsServicePublisher/task-started.lambda.ts",
       "steps": [
         {
-          "exec": "esbuild --bundle src/EcsServicePublisher/task-started.lambda.ts --target=\"node16\" --platform=\"node\" --outfile=\"assets/EcsServicePublisher/task-started.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:aws-sdk --watch"
+          "exec": "esbuild --bundle src/EcsServicePublisher/task-started.lambda.ts --target=\"node18\" --platform=\"node\" --outfile=\"assets/EcsServicePublisher/task-started.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:aws-sdk --external:@aws-sdk/* --watch"
         }
       ]
     },
@@ -85,7 +85,7 @@
       "description": "Create a JavaScript bundle from src/EcsServicePublisher/task-stopping.lambda.ts",
       "steps": [
         {
-          "exec": "esbuild --bundle src/EcsServicePublisher/task-stopping.lambda.ts --target=\"node16\" --platform=\"node\" --outfile=\"assets/EcsServicePublisher/task-stopping.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:aws-sdk"
+          "exec": "esbuild --bundle src/EcsServicePublisher/task-stopping.lambda.ts --target=\"node18\" --platform=\"node\" --outfile=\"assets/EcsServicePublisher/task-stopping.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:aws-sdk --external:@aws-sdk/*"
         }
       ]
     },
@@ -94,7 +94,7 @@
       "description": "Continuously update the JavaScript bundle from src/EcsServicePublisher/task-stopping.lambda.ts",
       "steps": [
         {
-          "exec": "esbuild --bundle src/EcsServicePublisher/task-stopping.lambda.ts --target=\"node16\" --platform=\"node\" --outfile=\"assets/EcsServicePublisher/task-stopping.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:aws-sdk --watch"
+          "exec": "esbuild --bundle src/EcsServicePublisher/task-stopping.lambda.ts --target=\"node18\" --platform=\"node\" --outfile=\"assets/EcsServicePublisher/task-stopping.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:aws-sdk --external:@aws-sdk/* --watch"
         }
       ]
     },
@@ -103,7 +103,7 @@
       "description": "Create a JavaScript bundle from src/EcsServicePublisher/task-sync.lambda.ts",
       "steps": [
         {
-          "exec": "esbuild --bundle src/EcsServicePublisher/task-sync.lambda.ts --target=\"node16\" --platform=\"node\" --outfile=\"assets/EcsServicePublisher/task-sync.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:aws-sdk"
+          "exec": "esbuild --bundle src/EcsServicePublisher/task-sync.lambda.ts --target=\"node18\" --platform=\"node\" --outfile=\"assets/EcsServicePublisher/task-sync.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:aws-sdk --external:@aws-sdk/*"
         }
       ]
     },
@@ -112,7 +112,7 @@
       "description": "Continuously update the JavaScript bundle from src/EcsServicePublisher/task-sync.lambda.ts",
       "steps": [
         {
-          "exec": "esbuild --bundle src/EcsServicePublisher/task-sync.lambda.ts --target=\"node16\" --platform=\"node\" --outfile=\"assets/EcsServicePublisher/task-sync.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:aws-sdk --watch"
+          "exec": "esbuild --bundle src/EcsServicePublisher/task-sync.lambda.ts --target=\"node18\" --platform=\"node\" --outfile=\"assets/EcsServicePublisher/task-sync.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:aws-sdk --external:@aws-sdk/* --watch"
         }
       ]
     },
@@ -121,7 +121,7 @@
       "description": "Create a JavaScript bundle from src/Route53Writer/gc.lambda.ts",
       "steps": [
         {
-          "exec": "esbuild --bundle src/Route53Writer/gc.lambda.ts --target=\"node16\" --platform=\"node\" --outfile=\"assets/Route53Writer/gc.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:aws-sdk"
+          "exec": "esbuild --bundle src/Route53Writer/gc.lambda.ts --target=\"node18\" --platform=\"node\" --outfile=\"assets/Route53Writer/gc.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:aws-sdk --external:@aws-sdk/*"
         }
       ]
     },
@@ -130,7 +130,7 @@
       "description": "Continuously update the JavaScript bundle from src/Route53Writer/gc.lambda.ts",
       "steps": [
         {
-          "exec": "esbuild --bundle src/Route53Writer/gc.lambda.ts --target=\"node16\" --platform=\"node\" --outfile=\"assets/Route53Writer/gc.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:aws-sdk --watch"
+          "exec": "esbuild --bundle src/Route53Writer/gc.lambda.ts --target=\"node18\" --platform=\"node\" --outfile=\"assets/Route53Writer/gc.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:aws-sdk --external:@aws-sdk/* --watch"
         }
       ]
     },
@@ -139,7 +139,7 @@
       "description": "Create a JavaScript bundle from src/Route53Writer/stream-handler.lambda.ts",
       "steps": [
         {
-          "exec": "esbuild --bundle src/Route53Writer/stream-handler.lambda.ts --target=\"node16\" --platform=\"node\" --outfile=\"assets/Route53Writer/stream-handler.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:aws-sdk"
+          "exec": "esbuild --bundle src/Route53Writer/stream-handler.lambda.ts --target=\"node18\" --platform=\"node\" --outfile=\"assets/Route53Writer/stream-handler.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:aws-sdk --external:@aws-sdk/*"
         }
       ]
     },
@@ -148,7 +148,7 @@
       "description": "Continuously update the JavaScript bundle from src/Route53Writer/stream-handler.lambda.ts",
       "steps": [
         {
-          "exec": "esbuild --bundle src/Route53Writer/stream-handler.lambda.ts --target=\"node16\" --platform=\"node\" --outfile=\"assets/Route53Writer/stream-handler.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:aws-sdk --watch"
+          "exec": "esbuild --bundle src/Route53Writer/stream-handler.lambda.ts --target=\"node18\" --platform=\"node\" --outfile=\"assets/Route53Writer/stream-handler.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:aws-sdk --external:@aws-sdk/* --watch"
         }
       ]
     },

@@ -17,7 +17,7 @@ export class TaskSyncFunction extends lambda.Function {
     super(scope, id, {
       description: 'src/EcsServicePublisher/task-sync.lambda.ts',
       ...props,
-      runtime: new lambda.Runtime('nodejs16.x', lambda.RuntimeFamily.NODEJS),
+      runtime: new lambda.Runtime('nodejs18.x', lambda.RuntimeFamily.NODEJS),
       handler: 'index.handler',
       code: lambda.Code.fromAsset(path.join(__dirname, '../../assets/EcsServicePublisher/task-sync.lambda')),
     });

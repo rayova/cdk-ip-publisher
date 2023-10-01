@@ -17,7 +17,7 @@ export class StreamHandlerFunction extends lambda.Function {
     super(scope, id, {
       description: 'src/Route53Writer/stream-handler.lambda.ts',
       ...props,
-      runtime: new lambda.Runtime('nodejs16.x', lambda.RuntimeFamily.NODEJS),
+      runtime: new lambda.Runtime('nodejs18.x', lambda.RuntimeFamily.NODEJS),
       handler: 'index.handler',
       code: lambda.Code.fromAsset(path.join(__dirname, '../../assets/Route53Writer/stream-handler.lambda')),
     });

@@ -41,6 +41,16 @@ const project = new awscdk.AwsCdkConstructLibrary({
     },
   },
 
+  lambdaOptions: {
+    runtime: awscdk.LambdaRuntime.NODEJS_18_X,
+    bundlingOptions: {
+      externals: [
+        'aws-sdk',
+        '@aws-sdk/*',
+      ],
+    },
+  },
+
   // deps: [],                /* Runtime dependencies of this module. */
   // description: undefined,  /* The description is just a string that helps people understand the purpose of the package. */
   // devDeps: [],             /* Build dependencies for this module. */
