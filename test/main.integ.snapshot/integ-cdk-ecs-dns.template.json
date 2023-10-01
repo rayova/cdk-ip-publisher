@@ -459,7 +459,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "430c30def2a65d1644e3eaa3f59546e134e825bdf3836896f978cc8d81f68361.zip"
+     "S3Key": "6b8b1978f6b74d9505dceba32531c6423a75cb73d929f206611458efd029c7b8.zip"
     },
     "Description": "src/Route53Writer/stream-handler.lambda.ts",
     "Environment": {
@@ -633,7 +633,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "8b49e1f650bbfeb9aacf8ae860ddb05b2d486b22070be808a152f7bc2636a5fa.zip"
+     "S3Key": "9bcd52936e305df8b6ddd05cef2220310e395fa595fedd04664bba98c2b96b5a.zip"
     },
     "Description": "src/Route53Writer/gc.lambda.ts",
     "Environment": {
@@ -935,7 +935,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "69549d128f76f8ee1ec2d79c2acca7a33b67c57fb37276562061a8832f554e7f.zip"
+     "S3Key": "259c25476ce20e68ec6779889a6879923d3864793ea98584ae867be63880e5bd.zip"
     },
     "Description": "src/EcsServicePublisher/task-stopping.lambda.ts",
     "Environment": {
@@ -1118,7 +1118,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "6770f8d6856b7b206c4432f7f608dd8d9010e3d76bc780722a5ae452ea8d416a.zip"
+     "S3Key": "3aeed59495e6854ae9d5dde0e562e8995ccb8e9ecdfbeefe27f4e3622cba8512.zip"
     },
     "Description": "src/EcsServicePublisher/task-started.lambda.ts",
     "Environment": {
@@ -1301,7 +1301,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "e58ab389336b0887f3cb241dce8a3eb618db494b90d001fbad57b778695f1ca7.zip"
+     "S3Key": "c8bee22c9b46ccb56abb12af2b0ad002d3f5e6dc31cd1e5e6501117e53dcd78a.zip"
     },
     "Description": "src/EcsServicePublisher/task-sync.lambda.ts",
     "Environment": {
@@ -1370,7 +1370,7 @@
     "RetentionInDays": 7
    }
   },
-  "IpsexampleTaskSyncCurrentVersionB2E1EEC264da78ffadd6d36f8441ccfa84833309": {
+  "IpsexampleTaskSyncCurrentVersionB2E1EEC2ec20be3d4f4197fa23033b8ce7ace082": {
    "Type": "AWS::Lambda::Version",
    "Properties": {
     "FunctionName": {
@@ -1606,7 +1606,7 @@
      ]
     },
     "HandlerArn": {
-     "Ref": "IpsexampleTaskSyncCurrentVersionB2E1EEC264da78ffadd6d36f8441ccfa84833309"
+     "Ref": "IpsexampleTaskSyncCurrentVersionB2E1EEC2ec20be3d4f4197fa23033b8ce7ace082"
     },
     "InvocationType": "Event",
     "Timeout": "60000",
