@@ -87,7 +87,12 @@ export const database = new Service({
   DnsRecord,
 }, {
   table: process.env.TABLE,
-  client: DynamoDBDocumentClient.from(new DynamoDBClient({})),
+  client: DynamoDBDocumentClient.from(new DynamoDBClient({}), {
+    marshallOptions: {
+      removeUndefinedValues: true,
+      convertEmptyValues: true,
+    },
+  }),
 });
 
 export function getDnsRecordIps(dnsRecord: DnsRecord) {
