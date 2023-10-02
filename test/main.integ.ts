@@ -49,6 +49,7 @@ new CfnOutput(stack, 'DnsManagerPath', { value: ipPublisher.node.path });
 
 ipPublisher.publishEcsService('example', {
   hostedZone,
+  cluster: cluster,
   service: service,
   name: 'example',
 });

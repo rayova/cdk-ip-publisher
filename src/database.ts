@@ -5,7 +5,7 @@ import { Entity, EntityItem, Service } from 'electrodb';
 
 import { serviceName } from './runtime';
 
-const EcsTaskIps = new Entity({
+export const EcsTaskIps = new Entity({
   model: {
     service: serviceName,
     entity: 'EcsTaskIps',
@@ -41,7 +41,7 @@ const EcsTaskIps = new Entity({
 });
 
 export type DnsRecord = EntityItem<typeof DnsRecord>;
-const DnsRecord = new Entity({
+export const DnsRecord = new Entity({
   model: {
     service: serviceName,
     entity: 'DnsRecord',

@@ -1,0 +1,453 @@
+{
+  "version": "34.0.0",
+  "artifacts": {
+    "integ-r53writer.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "integ-r53writer.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "integ-r53writer": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "integ-r53writer.template.json",
+        "terminationProtection": false,
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/bf63a5ca470b49d661a833d5d0dfef4ea869e29efb134e44f64355ba1f9b2d30.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "integ-r53writer.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "integ-r53writer.assets"
+      ],
+      "metadata": {
+        "/integ-r53writer/HostedZone/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "HostedZoneDB99F866"
+          }
+        ],
+        "/integ-r53writer/Table/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TableCD117FA1"
+          }
+        ],
+        "/integ-r53writer/Route53Writer/StreamHandler/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Route53WriterStreamHandlerServiceRole0B05338E"
+          }
+        ],
+        "/integ-r53writer/Route53Writer/StreamHandler/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Route53WriterStreamHandlerServiceRoleDefaultPolicy514EDF43"
+          }
+        ],
+        "/integ-r53writer/Route53Writer/StreamHandler/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Route53WriterStreamHandlerCD9F6D4D"
+          }
+        ],
+        "/integ-r53writer/Route53Writer/StreamHandler/DynamoDBEventSource:integr53writerTable7EB5E9EF/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Route53WriterStreamHandlerDynamoDBEventSourceintegr53writerTable7EB5E9EFD2C7FB07"
+          }
+        ],
+        "/integ-r53writer/Route53Writer/StreamHandler/LogRetention/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Route53WriterStreamHandlerLogRetentionA9F9EAFE"
+          }
+        ],
+        "/integ-r53writer/Route53Writer/GcFunction/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Route53WriterGcFunctionServiceRoleF7369AA5"
+          }
+        ],
+        "/integ-r53writer/Route53Writer/GcFunction/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Route53WriterGcFunctionServiceRoleDefaultPolicy71EA565F"
+          }
+        ],
+        "/integ-r53writer/Route53Writer/GcFunction/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Route53WriterGcFunction96D4C985"
+          }
+        ],
+        "/integ-r53writer/Route53Writer/GcFunction/LogRetention/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Route53WriterGcFunctionLogRetentionBE0028D8"
+          }
+        ],
+        "/integ-r53writer/Route53Writer/Provider/framework-onEvent/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Route53WriterProviderframeworkonEventServiceRole42C9226E"
+          }
+        ],
+        "/integ-r53writer/Route53Writer/Provider/framework-onEvent/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Route53WriterProviderframeworkonEventServiceRoleDefaultPolicy5DE106B1"
+          }
+        ],
+        "/integ-r53writer/Route53Writer/Provider/framework-onEvent/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Route53WriterProviderframeworkonEventA9B9672E"
+          }
+        ],
+        "/integ-r53writer/Route53Writer/CustomResource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Route53WriterCustomResource4E3A6842"
+          }
+        ],
+        "/integ-r53writer/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB"
+          }
+        ],
+        "/integ-r53writer/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB"
+          }
+        ],
+        "/integ-r53writer/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A"
+          }
+        ],
+        "/integ-r53writer/WriteDatabase/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "WriteDatabaseServiceRole4436E71B"
+          }
+        ],
+        "/integ-r53writer/WriteDatabase/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "WriteDatabaseServiceRoleDefaultPolicy22264EBA"
+          }
+        ],
+        "/integ-r53writer/WriteDatabase/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "WriteDatabaseEA67E64E"
+          }
+        ],
+        "/integ-r53writer/Exports/Output{\"Ref\":\"WriteDatabaseEA67E64E\"}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputRefWriteDatabaseEA67E64E8C4A0BE9"
+          }
+        ],
+        "/integ-r53writer/Exports/Output{\"Ref\":\"HostedZoneDB99F866\"}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputRefHostedZoneDB99F8662BBAE844"
+          }
+        ],
+        "/integ-r53writer/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/integ-r53writer/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ],
+        "AddFnServiceRoleFD536FA7": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AddFnServiceRoleFD536FA7",
+            "trace": [
+              "!!DESTRUCTIVE_CHANGES: WILL_DESTROY"
+            ]
+          }
+        ],
+        "AddFnServiceRoleDefaultPolicyC48C193D": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AddFnServiceRoleDefaultPolicyC48C193D",
+            "trace": [
+              "!!DESTRUCTIVE_CHANGES: WILL_DESTROY"
+            ]
+          }
+        ],
+        "AddFnD9BA6D61": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AddFnD9BA6D61",
+            "trace": [
+              "!!DESTRUCTIVE_CHANGES: WILL_DESTROY"
+            ]
+          }
+        ]
+      },
+      "displayName": "integ-r53writer"
+    },
+    "IntegDefaultTestDeployAssert4E6713E1.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "IntegDefaultTestDeployAssert4E6713E1.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "IntegDefaultTestDeployAssert4E6713E1": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "IntegDefaultTestDeployAssert4E6713E1.template.json",
+        "terminationProtection": false,
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/3922a135748dd9c7fbf2171f440a19aa03cc335a6122357ac9349b36e01f321b.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "IntegDefaultTestDeployAssert4E6713E1.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "integ-r53writer",
+        "IntegDefaultTestDeployAssert4E6713E1.assets"
+      ],
+      "metadata": {
+        "/Integ/DefaultTest/DeployAssert/Assertion0/Default/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Assertion0"
+          }
+        ],
+        "/Integ/DefaultTest/DeployAssert/Assertion0/Invoke": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Assertion0InvokeF221531F"
+          }
+        ],
+        "/Integ/DefaultTest/DeployAssert/SingletonFunction1488541a7b23466481b69b4408076b81/Role": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SingletonFunction1488541a7b23466481b69b4408076b81Role37ABCE73"
+          }
+        ],
+        "/Integ/DefaultTest/DeployAssert/SingletonFunction1488541a7b23466481b69b4408076b81/Handler": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SingletonFunction1488541a7b23466481b69b4408076b81HandlerCD40AE9F"
+          }
+        ],
+        "/Integ/DefaultTest/DeployAssert/Assertion1/Default/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Assertion1"
+          }
+        ],
+        "/Integ/DefaultTest/DeployAssert/Assertion1/WaitFor/IsCompleteProvider/Invoke": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Assertion1WaitForIsCompleteProviderInvokeFAEC7DEE"
+          }
+        ],
+        "/Integ/DefaultTest/DeployAssert/Assertion1/WaitFor/TimeoutProvider/Invoke": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Assertion1WaitForTimeoutProviderInvoke32056DC8"
+          }
+        ],
+        "/Integ/DefaultTest/DeployAssert/Assertion1/WaitFor/Role": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Assertion1WaitForRoleF5963579"
+          }
+        ],
+        "/Integ/DefaultTest/DeployAssert/Assertion1/WaitFor/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Assertion1WaitFor5D210412"
+          }
+        ],
+        "/Integ/DefaultTest/DeployAssert/Assertion1/AssertionResults": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AssertionResultsAssertion1"
+          }
+        ],
+        "/Integ/DefaultTest/DeployAssert/SingletonFunction76b3e830a873425f8453eddd85c86925/Role": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SingletonFunction76b3e830a873425f8453eddd85c86925Role918961BB"
+          }
+        ],
+        "/Integ/DefaultTest/DeployAssert/SingletonFunction76b3e830a873425f8453eddd85c86925/Handler": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SingletonFunction76b3e830a873425f8453eddd85c86925Handler81461ECE"
+          }
+        ],
+        "/Integ/DefaultTest/DeployAssert/SingletonFunction5c1898e096fb4e3e95d5f6c67f3ce41a/Role": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SingletonFunction5c1898e096fb4e3e95d5f6c67f3ce41aRoleB84BD8CE"
+          }
+        ],
+        "/Integ/DefaultTest/DeployAssert/SingletonFunction5c1898e096fb4e3e95d5f6c67f3ce41a/Handler": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SingletonFunction5c1898e096fb4e3e95d5f6c67f3ce41aHandlerADF3E6EA"
+          }
+        ],
+        "/Integ/DefaultTest/DeployAssert/Assertion2/Default/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Assertion2"
+          }
+        ],
+        "/Integ/DefaultTest/DeployAssert/Assertion2/Invoke": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Assertion2Invoke604ED26B"
+          }
+        ],
+        "/Integ/DefaultTest/DeployAssert/Assertion3/Default/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Assertion3"
+          }
+        ],
+        "/Integ/DefaultTest/DeployAssert/Assertion3/WaitFor/IsCompleteProvider/Invoke": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Assertion3WaitForIsCompleteProviderInvoke5D485860"
+          }
+        ],
+        "/Integ/DefaultTest/DeployAssert/Assertion3/WaitFor/TimeoutProvider/Invoke": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Assertion3WaitForTimeoutProviderInvokeAD345C9E"
+          }
+        ],
+        "/Integ/DefaultTest/DeployAssert/Assertion3/WaitFor/Role": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Assertion3WaitForRole8761A3B5"
+          }
+        ],
+        "/Integ/DefaultTest/DeployAssert/Assertion3/WaitFor/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Assertion3WaitForEB15D057"
+          }
+        ],
+        "/Integ/DefaultTest/DeployAssert/Assertion3/AssertionResults": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AssertionResultsAssertion3"
+          }
+        ],
+        "/Integ/DefaultTest/DeployAssert/Assertion4/Default/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Assertion4"
+          }
+        ],
+        "/Integ/DefaultTest/DeployAssert/Assertion4/Invoke": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Assertion4Invoke4657EE77"
+          }
+        ],
+        "/Integ/DefaultTest/DeployAssert/Assertion5/Default/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Assertion5"
+          }
+        ],
+        "/Integ/DefaultTest/DeployAssert/Assertion5/WaitFor/IsCompleteProvider/Invoke": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Assertion5WaitForIsCompleteProviderInvokeEE2527F8"
+          }
+        ],
+        "/Integ/DefaultTest/DeployAssert/Assertion5/WaitFor/TimeoutProvider/Invoke": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Assertion5WaitForTimeoutProviderInvokeE72E0F5F"
+          }
+        ],
+        "/Integ/DefaultTest/DeployAssert/Assertion5/WaitFor/Role": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Assertion5WaitForRoleF936605C"
+          }
+        ],
+        "/Integ/DefaultTest/DeployAssert/Assertion5/WaitFor/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Assertion5WaitFor91FB58E7"
+          }
+        ],
+        "/Integ/DefaultTest/DeployAssert/Assertion5/AssertionResults": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AssertionResultsAssertion5"
+          }
+        ],
+        "/Integ/DefaultTest/DeployAssert/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/Integ/DefaultTest/DeployAssert/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "Integ/DefaultTest/DeployAssert"
+    },
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    }
+  }
+}

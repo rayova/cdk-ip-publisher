@@ -30,6 +30,20 @@
   resolved "https://registry.yarnpkg.com/@aws-cdk/asset-node-proxy-agent-v6/-/asset-node-proxy-agent-v6-2.0.1.tgz#6dc9b7cdb22ff622a7176141197962360c33e9ac"
   integrity sha512-DDt4SLdLOwWCjGtltH4VCST7hpOI5DzieuhGZsBpZ+AgJdSI2GCjklCXm0GCTwJG/SolkL5dtQXyUKgg9luBDg==
 
+"@aws-cdk/integ-runner@^2.97.0-alpha.0":
+  version "2.97.0-alpha.0"
+  resolved "https://registry.yarnpkg.com/@aws-cdk/integ-runner/-/integ-runner-2.97.0-alpha.0.tgz#62cb0a534b940b5d631e8b7d72f7a30191130005"
+  integrity sha512-DjmZ4yv2QEXZZKPQpG1Re2NaXT4Jye3Xi9YRNxPOICXqM4vZBpWUUBYtDRHq7uoCSvZ1GxrqBWBiUKab4wwpBQ==
+  dependencies:
+    aws-cdk "2.97.0"
+  optionalDependencies:
+    fsevents "2.3.2"
+
+"@aws-cdk/integ-tests-alpha@^2.97.0-alpha.0":
+  version "2.97.0-alpha.0"
+  resolved "https://registry.yarnpkg.com/@aws-cdk/integ-tests-alpha/-/integ-tests-alpha-2.97.0-alpha.0.tgz#837645df3d576dc76256f0accf59c8aa536930fd"
+  integrity sha512-ZVIdK9IPR2tEn9TeMwh00Q9q+IRHNfIYAdhHqAVlIPnYoVQGhJ8oKBxshkiAujSsnuZklnkm4206c8NdrpvQFg==
+
 "@aws-crypto/crc32@3.0.0":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@aws-crypto/crc32/-/crc32-3.0.0.tgz#07300eca214409c33e3ff769cd5697b57fdd38fa"
@@ -2573,6 +2587,13 @@ aws-cdk-lib@2.97.0:
     semver "^7.5.4"
     table "^6.8.1"
     yaml "1.10.2"
+
+aws-cdk@2.97.0:
+  version "2.97.0"
+  resolved "https://registry.yarnpkg.com/aws-cdk/-/aws-cdk-2.97.0.tgz#72c2c8acde8c8e3d7f888e537efdf2c896512c18"
+  integrity sha512-YTQU6y4E82Srz4F/Vj8zsHz8eCrstLY1HIMzkxOJqnaKO8wtGBCSjSwHlwcS/HnGUl9qBXWgHQwxXvu5yyVw5A==
+  optionalDependencies:
+    fsevents "2.3.2"
 
 aws-cdk@^2:
   version "2.99.1"

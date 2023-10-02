@@ -16,6 +16,8 @@ const project = new awscdk.AwsCdkConstructLibrary({
   npmAccess: javascript.NpmAccess.PUBLIC,
 
   devDeps: [
+    '@aws-cdk/integ-tests-alpha@^2.97.0-alpha.0',
+    '@aws-cdk/integ-runner@^2.97.0-alpha.0',
     '@types/aws-lambda',
     '@aws-sdk/client-ecs@^3',
     '@aws-sdk/client-route-53@^3',
@@ -60,6 +62,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
 project.package.file.addDeletionOverride('keywords');
 
 project.addGitIgnore('.idea');
+project.addGitIgnore('cdk.context.json');
 project.addPackageIgnore('cdk.out');
 
 const cdkConfig = new awscdk.CdkConfig(project, {
@@ -81,5 +84,7 @@ project.eslint!.addIgnorePattern('*.lambda.ts');
 project.addTask('integ:main:dev', {
   exec: 'cdk watch --app "ts-node -P tsconfig.dev.json test/main.integ.ts" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata \'**\' -o test/.tmp/main.integ/deploy.cdk.out --hotswap-fallback',
 });
+
+project.testTask.exec('integ-runner --language typescript');
 
 project.synth();

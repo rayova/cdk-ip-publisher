@@ -130,9 +130,20 @@ const publishEcsServiceParams: PublishEcsServiceParams = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
+| <code><a href="#@rayova/cdk-ip-publisher.PublishEcsServiceParams.property.cluster">cluster</a></code> | <code>aws-cdk-lib.aws_ecs.ICluster</code> | *No description.* |
 | <code><a href="#@rayova/cdk-ip-publisher.PublishEcsServiceParams.property.hostedZone">hostedZone</a></code> | <code>aws-cdk-lib.aws_route53.IHostedZone</code> | *No description.* |
-| <code><a href="#@rayova/cdk-ip-publisher.PublishEcsServiceParams.property.service">service</a></code> | <code>aws-cdk-lib.aws_ecs.BaseService</code> | *No description.* |
+| <code><a href="#@rayova/cdk-ip-publisher.PublishEcsServiceParams.property.service">service</a></code> | <code>aws-cdk-lib.aws_ecs.IService</code> | *No description.* |
 | <code><a href="#@rayova/cdk-ip-publisher.PublishEcsServiceParams.property.name">name</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `cluster`<sup>Required</sup> <a name="cluster" id="@rayova/cdk-ip-publisher.PublishEcsServiceParams.property.cluster"></a>
+
+```typescript
+public readonly cluster: ICluster;
+```
+
+- *Type:* aws-cdk-lib.aws_ecs.ICluster
 
 ---
 
@@ -149,10 +160,10 @@ public readonly hostedZone: IHostedZone;
 ##### `service`<sup>Required</sup> <a name="service" id="@rayova/cdk-ip-publisher.PublishEcsServiceParams.property.service"></a>
 
 ```typescript
-public readonly service: BaseService;
+public readonly service: IService;
 ```
 
-- *Type:* aws-cdk-lib.aws_ecs.BaseService
+- *Type:* aws-cdk-lib.aws_ecs.IService
 
 ---
 

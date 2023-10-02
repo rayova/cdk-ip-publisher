@@ -67,6 +67,7 @@ test/main.integ.snapshot/**/manifest.json
 test/main.integ.snapshot/tree.json
 test/main.integ.snapshot/**/tree.json
 .idea
+cdk.context.json
 !/cdk.json
 /cdk.out/
 .cdk.staging/

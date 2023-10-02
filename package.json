@@ -53,6 +53,8 @@
     "organization": false
   },
   "devDependencies": {
+    "@aws-cdk/integ-runner": "^2.97.0-alpha.0",
+    "@aws-cdk/integ-tests-alpha": "^2.97.0-alpha.0",
     "@aws-lambda-powertools/logger": "^1",
     "@aws-lambda-powertools/tracer": "^1",
     "@aws-sdk/client-dynamodb": "^3",

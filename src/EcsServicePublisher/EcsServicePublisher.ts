@@ -7,7 +7,8 @@ import { TaskSyncFunction } from './task-sync-function';
 export interface EcsServiceIpsProps {
   readonly table: aws_dynamodb.ITable;
   readonly hostedZone: aws_route53.IHostedZone;
-  readonly service: aws_ecs.BaseService;
+  readonly cluster: aws_ecs.ICluster;
+  readonly service: aws_ecs.IService;
   readonly name: string;
 }
 
@@ -17,6 +18,7 @@ export class EcsServicePublisher extends Construct {
 
     const {
       table,
+      cluster,
       service,
       name,
       hostedZone,
@@ -30,7 +32,7 @@ export class EcsServicePublisher extends Construct {
         TABLE: table.tableName,
         HOSTED_ZONE_ID: hostedZone.hostedZoneId,
         RECORD_NAME: `${name}.${hostedZone.zoneName}`,
-        CLUSTER_ARN: service.cluster.clusterArn,
+        CLUSTER_ARN: cluster.clusterArn,
         SERVICE_NAME: service.serviceName,
       },
       initialPolicy: [
@@ -69,7 +71,7 @@ export class EcsServicePublisher extends Construct {
         source: ['aws.ecs'],
         detailType: ['ECS Task State Change'],
         detail: {
-          clusterArn: [service.cluster.clusterArn],
+          clusterArn: [cluster.clusterArn],
           group: [`service:${service.serviceName}`],
           lastStatus: ['RUNNING'],
           desiredStatus: ['STOPPED'],
@@ -88,7 +90,7 @@ export class EcsServicePublisher extends Construct {
         source: ['aws.ecs'],
         detailType: ['ECS Task State Change'],
         detail: {
-          clusterArn: [service.cluster.clusterArn],
+          clusterArn: [cluster.clusterArn],
           group: [`service:${service.serviceName}`],
           lastStatus: ['RUNNING'],
           desiredStatus: ['RUNNING'],
@@ -108,7 +110,7 @@ export class EcsServicePublisher extends Construct {
         detailType: ['ECS Service Action'],
         detail: {
           eventName: ['SERVICE_STEADY_STATE'],
-          clusterArn: [service.cluster.clusterArn],
+          clusterArn: [cluster.clusterArn],
         },
       },
       targets: [
