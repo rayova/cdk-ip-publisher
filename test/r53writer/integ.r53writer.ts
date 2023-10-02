@@ -38,6 +38,9 @@ if (!DeployAssert.isDeployAssert(deployAssert)) {
   throw new Error('Expected DeployAssert');
 }
 
+// Extract the assertion scope from the DeployAssert because their
+// implementation fails to allow multiples of the same aws api call
+// due to insufficient uniqueness in the assertion ids.
 const assertionScope = deployAssert.scope;
 
 let id = 0;

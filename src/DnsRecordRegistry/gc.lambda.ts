@@ -1,4 +1,4 @@
-import { AppHandler, logger, tracer } from '../runtime';
+import { AppHandler, logger, tracer } from '../common';
 import { z } from 'zod';
 import { database } from '../Database/runtime';
 import { getRecordSet } from '../Route53Writer/runtime';

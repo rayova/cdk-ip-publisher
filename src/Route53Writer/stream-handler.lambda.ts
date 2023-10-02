@@ -2,7 +2,7 @@ import { AttributeValue } from '@aws-sdk/client-dynamodb';
 import { unmarshall } from '@aws-sdk/util-dynamodb';
 import * as lambda from 'aws-lambda';
 import { database, DnsRecord, getDnsRecordIps } from '../Database/runtime';
-import { AppHandler, logger, tracer } from '../runtime';
+import { AppHandler, logger, tracer } from '../common';
 import { deleteRecordSet, upsertRecordSet } from './runtime';
 
 export const handler = AppHandler(async function (event: lambda.DynamoDBStreamEvent) {

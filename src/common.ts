@@ -4,7 +4,7 @@ import { captureLambdaHandler, Tracer } from '@aws-lambda-powertools/tracer';
 import middy from '@middy/core';
 import * as lambda from 'aws-lambda';
 
-export const serviceName = 'cdk-ecs-dns';
+export const serviceName = 'cdk-ip-publisher';
 
 export const tracer = new Tracer({
   serviceName,

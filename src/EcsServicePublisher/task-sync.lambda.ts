@@ -1,4 +1,4 @@
-import { AppHandler, logger } from '../runtime';
+import { AppHandler, logger } from '../common';
 import { DescribeTasksCommand, ECSClient, ListTasksCommand, Task } from '@aws-sdk/client-ecs';
 import { env, getPublicIps, TaskState$ } from './runtime';
 import { ListTasksCommandOutput } from '@aws-sdk/client-ecs/dist-types/commands/ListTasksCommand';

@@ -3,7 +3,7 @@ import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import { DynamoDBDocumentClient } from '@aws-sdk/lib-dynamodb';
 import { Entity, EntityItem, Service } from 'electrodb';
 
-import { serviceName } from '../runtime';
+import { serviceName } from '../common';
 
 export const EcsTaskIps = new Entity({
   model: {

@@ -1,4 +1,4 @@
-import { AppHandler, tracer } from '../runtime';
+import { AppHandler, tracer } from '../common';
 import { database } from '../Database/runtime';
 import { env, TaskStateEvent$ } from './runtime';
 

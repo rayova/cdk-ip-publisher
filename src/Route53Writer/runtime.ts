@@ -1,8 +1,8 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
 import { ChangeResourceRecordSetsCommand, ListResourceRecordSetsCommand, Route53Client } from '@aws-sdk/client-route-53';
+import { logger, tracer } from '../common';
 import { DnsRecord, getDnsRecordIps } from '../Database/runtime';
-import { logger, tracer } from '../runtime';
 
 const r53 = new Route53Client({});
 
