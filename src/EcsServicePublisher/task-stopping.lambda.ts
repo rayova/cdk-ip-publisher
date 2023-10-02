@@ -1,5 +1,5 @@
 import { AppHandler, tracer } from '../runtime';
-import { database } from '../database';
+import { database } from '../Database/runtime';
 import { env, TaskStateEvent$ } from './runtime';
 
 // https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs_cwe_events.html#ecs_task_events

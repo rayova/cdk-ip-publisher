@@ -2,7 +2,7 @@ import { AppHandler, logger } from '../runtime';
 import { DescribeTasksCommand, ECSClient, ListTasksCommand, Task } from '@aws-sdk/client-ecs';
 import { env, getPublicIps, TaskState$ } from './runtime';
 import { ListTasksCommandOutput } from '@aws-sdk/client-ecs/dist-types/commands/ListTasksCommand';
-import { database } from '../database';
+import { database } from '../Database/runtime';
 
 const ecs = new ECSClient({});
 

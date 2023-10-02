@@ -1,7 +1,7 @@
 import { AwsApiCall, ExpectedResult, IntegTest, InvocationType, LambdaInvokeFunction } from '@aws-cdk/integ-tests-alpha';
 import { DeployAssert } from '@aws-cdk/integ-tests-alpha/lib/assertions/private/deploy-assert';
 import { App, aws_lambda_nodejs, aws_route53, Duration, Stack } from 'aws-cdk-lib';
-import { IpPublisherDatabase } from '../../src/IpPublisherDatabase';
+import { Database } from '../../src/Database';
 import { Route53Writer } from '../../src/Route53Writer';
 
 const app = new App();
@@ -11,7 +11,7 @@ const hostedZone = new aws_route53.PublicHostedZone(stack, 'HostedZone', {
   zoneName: 'r53writer.integ.wheatstalk.ca',
 });
 
-const table = new IpPublisherDatabase(stack, 'Table');
+const table = new Database(stack, 'Table');
 
 new Route53Writer(stack, 'Route53Writer', {
   table,

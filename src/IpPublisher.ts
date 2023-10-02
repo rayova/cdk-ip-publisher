@@ -1,18 +1,18 @@
 import { aws_ecs, aws_route53 } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
+import { Database } from './Database';
 import { EcsServicePublisher } from './EcsServicePublisher';
-import { IpPublisherDatabase } from './IpPublisherDatabase';
 import { DnsRecordRegistry, Route53Writer } from './Route53Writer';
 
 export class IpPublisher extends Construct {
-  private readonly table: IpPublisherDatabase;
+  private readonly table: Database;
   private readonly writer: Route53Writer;
   private readonly registry: DnsRecordRegistry;
 
   constructor(scope: Construct, id: string) {
     super(scope, id);
 
-    this.table = new IpPublisherDatabase(this, 'Table');
+    this.table = new Database(this, 'Table');
 
     this.writer = new Route53Writer(this, 'Route53Writer', {
       table: this.table,

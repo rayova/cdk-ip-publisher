@@ -1,7 +1,7 @@
 import { aws_dynamodb, RemovalPolicy } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 
-export class IpPublisherDatabase extends aws_dynamodb.Table {
+export class Database extends aws_dynamodb.Table {
   constructor(scope: Construct, id: string) {
     super(scope, id, {
       removalPolicy: RemovalPolicy.DESTROY,

@@ -1,5 +1,5 @@
 import { AppHandler, logger, tracer } from '../runtime';
-import { database } from '../database';
+import { database } from '../Database/runtime';
 import { env, getPublicIps, TaskStateEvent$ } from './runtime';
 
 export const handler = AppHandler(async (event: any) => {
