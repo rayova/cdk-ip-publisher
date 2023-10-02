@@ -10,16 +10,16 @@ export interface GcFunctionProps extends lambda.FunctionOptions {
 }
 
 /**
- * An AWS Lambda function which executes src/Route53Writer/gc.
+ * An AWS Lambda function which executes src/DnsRecordRegistry/gc.
  */
 export class GcFunction extends lambda.Function {
   constructor(scope: Construct, id: string, props?: GcFunctionProps) {
     super(scope, id, {
-      description: 'src/Route53Writer/gc.lambda.ts',
+      description: 'src/DnsRecordRegistry/gc.lambda.ts',
       ...props,
       runtime: new lambda.Runtime('nodejs18.x', lambda.RuntimeFamily.NODEJS),
       handler: 'index.handler',
-      code: lambda.Code.fromAsset(path.join(__dirname, '../../assets/Route53Writer/gc.lambda')),
+      code: lambda.Code.fromAsset(path.join(__dirname, '../../assets/DnsRecordRegistry/gc.lambda')),
     });
     this.addEnvironment('AWS_NODEJS_CONNECTION_REUSE_ENABLED', '1', { removeInEdge: true });
   }

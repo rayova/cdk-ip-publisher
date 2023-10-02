@@ -46,6 +46,9 @@
       "description": "Prepare assets",
       "steps": [
         {
+          "spawn": "bundle:DnsRecordRegistry/gc.lambda"
+        },
+        {
           "spawn": "bundle:EcsServicePublisher/task-started.lambda"
         },
         {
@@ -55,10 +58,25 @@
           "spawn": "bundle:EcsServicePublisher/task-sync.lambda"
         },
         {
-          "spawn": "bundle:Route53Writer/gc.lambda"
-        },
-        {
           "spawn": "bundle:Route53Writer/stream-handler.lambda"
+        }
+      ]
+    },
+    "bundle:DnsRecordRegistry/gc.lambda": {
+      "name": "bundle:DnsRecordRegistry/gc.lambda",
+      "description": "Create a JavaScript bundle from src/DnsRecordRegistry/gc.lambda.ts",
+      "steps": [
+        {
+          "exec": "esbuild --bundle src/DnsRecordRegistry/gc.lambda.ts --target=\"node18\" --platform=\"node\" --outfile=\"assets/DnsRecordRegistry/gc.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:aws-sdk --external:@aws-sdk/*"
+        }
+      ]
+    },
+    "bundle:DnsRecordRegistry/gc.lambda:watch": {
+      "name": "bundle:DnsRecordRegistry/gc.lambda:watch",
+      "description": "Continuously update the JavaScript bundle from src/DnsRecordRegistry/gc.lambda.ts",
+      "steps": [
+        {
+          "exec": "esbuild --bundle src/DnsRecordRegistry/gc.lambda.ts --target=\"node18\" --platform=\"node\" --outfile=\"assets/DnsRecordRegistry/gc.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:aws-sdk --external:@aws-sdk/* --watch"
         }
       ]
     },
@@ -113,24 +131,6 @@
       "steps": [
         {
           "exec": "esbuild --bundle src/EcsServicePublisher/task-sync.lambda.ts --target=\"node18\" --platform=\"node\" --outfile=\"assets/EcsServicePublisher/task-sync.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:aws-sdk --external:@aws-sdk/* --watch"
-        }
-      ]
-    },
-    "bundle:Route53Writer/gc.lambda": {
-      "name": "bundle:Route53Writer/gc.lambda",
-      "description": "Create a JavaScript bundle from src/Route53Writer/gc.lambda.ts",
-      "steps": [
-        {
-          "exec": "esbuild --bundle src/Route53Writer/gc.lambda.ts --target=\"node18\" --platform=\"node\" --outfile=\"assets/Route53Writer/gc.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:aws-sdk --external:@aws-sdk/*"
-        }
-      ]
-    },
-    "bundle:Route53Writer/gc.lambda:watch": {
-      "name": "bundle:Route53Writer/gc.lambda:watch",
-      "description": "Continuously update the JavaScript bundle from src/Route53Writer/gc.lambda.ts",
-      "steps": [
-        {
-          "exec": "esbuild --bundle src/Route53Writer/gc.lambda.ts --target=\"node18\" --platform=\"node\" --outfile=\"assets/Route53Writer/gc.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:aws-sdk --external:@aws-sdk/* --watch"
         }
       ]
     },

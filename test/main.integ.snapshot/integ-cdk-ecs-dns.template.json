@@ -524,7 +524,7 @@
     "RetentionInDays": 7
    }
   },
-  "IpsRoute53WriterGcFunctionServiceRoleC41EADFB": {
+  "IpsDnsRecordRegistryGcFunctionServiceRole039C1B08": {
    "Type": "AWS::IAM::Role",
    "Properties": {
     "AssumeRolePolicyDocument": {
@@ -553,9 +553,16 @@
       ]
      }
     ]
-   }
+   },
+   "DependsOn": [
+    "IpsRoute53WriterStreamHandlerDynamoDBEventSourceintegcdkecsdnsIpsTable7012C25A9987D14B",
+    "IpsRoute53WriterStreamHandlerLogRetention56223588",
+    "IpsRoute53WriterStreamHandler3D4AAE4F",
+    "IpsRoute53WriterStreamHandlerServiceRoleDefaultPolicyCEEBA75A",
+    "IpsRoute53WriterStreamHandlerServiceRole72BBA7E2"
+   ]
   },
-  "IpsRoute53WriterGcFunctionServiceRoleDefaultPolicyCD783996": {
+  "IpsDnsRecordRegistryGcFunctionServiceRoleDefaultPolicy30D90A4F": {
    "Type": "AWS::IAM::Policy",
    "Properties": {
     "PolicyDocument": {
@@ -618,24 +625,31 @@
      ],
      "Version": "2012-10-17"
     },
-    "PolicyName": "IpsRoute53WriterGcFunctionServiceRoleDefaultPolicyCD783996",
+    "PolicyName": "IpsDnsRecordRegistryGcFunctionServiceRoleDefaultPolicy30D90A4F",
     "Roles": [
      {
-      "Ref": "IpsRoute53WriterGcFunctionServiceRoleC41EADFB"
+      "Ref": "IpsDnsRecordRegistryGcFunctionServiceRole039C1B08"
      }
     ]
-   }
+   },
+   "DependsOn": [
+    "IpsRoute53WriterStreamHandlerDynamoDBEventSourceintegcdkecsdnsIpsTable7012C25A9987D14B",
+    "IpsRoute53WriterStreamHandlerLogRetention56223588",
+    "IpsRoute53WriterStreamHandler3D4AAE4F",
+    "IpsRoute53WriterStreamHandlerServiceRoleDefaultPolicyCEEBA75A",
+    "IpsRoute53WriterStreamHandlerServiceRole72BBA7E2"
+   ]
   },
-  "IpsRoute53WriterGcFunction18CEEA12": {
+  "IpsDnsRecordRegistryGcFunction59809E56": {
    "Type": "AWS::Lambda::Function",
    "Properties": {
     "Code": {
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "01114077576804f6ba271e1a96e5d54d85294cfb0b6915bb58b41a6546d9b37d.zip"
+     "S3Key": "129d2354cbf7c1670f8e7abeb2ef64f004ce4d7a847a265b46731e0ae740f0f3.zip"
     },
-    "Description": "src/Route53Writer/gc.lambda.ts",
+    "Description": "src/DnsRecordRegistry/gc.lambda.ts",
     "Environment": {
      "Variables": {
       "TABLE": {
@@ -647,7 +661,7 @@
     "Handler": "index.handler",
     "Role": {
      "Fn::GetAtt": [
-      "IpsRoute53WriterGcFunctionServiceRoleC41EADFB",
+      "IpsDnsRecordRegistryGcFunctionServiceRole039C1B08",
       "Arn"
      ]
     },
@@ -658,11 +672,16 @@
     }
    },
    "DependsOn": [
-    "IpsRoute53WriterGcFunctionServiceRoleDefaultPolicyCD783996",
-    "IpsRoute53WriterGcFunctionServiceRoleC41EADFB"
+    "IpsDnsRecordRegistryGcFunctionServiceRoleDefaultPolicy30D90A4F",
+    "IpsDnsRecordRegistryGcFunctionServiceRole039C1B08",
+    "IpsRoute53WriterStreamHandlerDynamoDBEventSourceintegcdkecsdnsIpsTable7012C25A9987D14B",
+    "IpsRoute53WriterStreamHandlerLogRetention56223588",
+    "IpsRoute53WriterStreamHandler3D4AAE4F",
+    "IpsRoute53WriterStreamHandlerServiceRoleDefaultPolicyCEEBA75A",
+    "IpsRoute53WriterStreamHandlerServiceRole72BBA7E2"
    ]
   },
-  "IpsRoute53WriterGcFunctionLogRetentionE447FF97": {
+  "IpsDnsRecordRegistryGcFunctionLogRetentionB0F8EB26": {
    "Type": "Custom::LogRetention",
    "Properties": {
     "ServiceToken": {
@@ -677,15 +696,22 @@
       [
        "/aws/lambda/",
        {
-        "Ref": "IpsRoute53WriterGcFunction18CEEA12"
+        "Ref": "IpsDnsRecordRegistryGcFunction59809E56"
        }
       ]
      ]
     },
     "RetentionInDays": 7
-   }
+   },
+   "DependsOn": [
+    "IpsRoute53WriterStreamHandlerDynamoDBEventSourceintegcdkecsdnsIpsTable7012C25A9987D14B",
+    "IpsRoute53WriterStreamHandlerLogRetention56223588",
+    "IpsRoute53WriterStreamHandler3D4AAE4F",
+    "IpsRoute53WriterStreamHandlerServiceRoleDefaultPolicyCEEBA75A",
+    "IpsRoute53WriterStreamHandlerServiceRole72BBA7E2"
+   ]
   },
-  "IpsRoute53WriterProviderframeworkonEventServiceRoleE17A06B6": {
+  "IpsDnsRecordRegistryProviderframeworkonEventServiceRole8CD14DA5": {
    "Type": "AWS::IAM::Role",
    "Properties": {
     "AssumeRolePolicyDocument": {
@@ -714,9 +740,16 @@
       ]
      }
     ]
-   }
+   },
+   "DependsOn": [
+    "IpsRoute53WriterStreamHandlerDynamoDBEventSourceintegcdkecsdnsIpsTable7012C25A9987D14B",
+    "IpsRoute53WriterStreamHandlerLogRetention56223588",
+    "IpsRoute53WriterStreamHandler3D4AAE4F",
+    "IpsRoute53WriterStreamHandlerServiceRoleDefaultPolicyCEEBA75A",
+    "IpsRoute53WriterStreamHandlerServiceRole72BBA7E2"
+   ]
   },
-  "IpsRoute53WriterProviderframeworkonEventServiceRoleDefaultPolicyE0496DA2": {
+  "IpsDnsRecordRegistryProviderframeworkonEventServiceRoleDefaultPolicyBED731D9": {
    "Type": "AWS::IAM::Policy",
    "Properties": {
     "PolicyDocument": {
@@ -727,7 +760,7 @@
        "Resource": [
         {
          "Fn::GetAtt": [
-          "IpsRoute53WriterGcFunction18CEEA12",
+          "IpsDnsRecordRegistryGcFunction59809E56",
           "Arn"
          ]
         },
@@ -737,7 +770,7 @@
           [
            {
             "Fn::GetAtt": [
-             "IpsRoute53WriterGcFunction18CEEA12",
+             "IpsDnsRecordRegistryGcFunction59809E56",
              "Arn"
             ]
            },
@@ -750,15 +783,22 @@
      ],
      "Version": "2012-10-17"
     },
-    "PolicyName": "IpsRoute53WriterProviderframeworkonEventServiceRoleDefaultPolicyE0496DA2",
+    "PolicyName": "IpsDnsRecordRegistryProviderframeworkonEventServiceRoleDefaultPolicyBED731D9",
     "Roles": [
      {
-      "Ref": "IpsRoute53WriterProviderframeworkonEventServiceRoleE17A06B6"
+      "Ref": "IpsDnsRecordRegistryProviderframeworkonEventServiceRole8CD14DA5"
      }
     ]
-   }
+   },
+   "DependsOn": [
+    "IpsRoute53WriterStreamHandlerDynamoDBEventSourceintegcdkecsdnsIpsTable7012C25A9987D14B",
+    "IpsRoute53WriterStreamHandlerLogRetention56223588",
+    "IpsRoute53WriterStreamHandler3D4AAE4F",
+    "IpsRoute53WriterStreamHandlerServiceRoleDefaultPolicyCEEBA75A",
+    "IpsRoute53WriterStreamHandlerServiceRole72BBA7E2"
+   ]
   },
-  "IpsRoute53WriterProviderframeworkonEvent10EFDAB5": {
+  "IpsDnsRecordRegistryProviderframeworkonEvent559C9F0B": {
    "Type": "AWS::Lambda::Function",
    "Properties": {
     "Code": {
@@ -767,12 +807,12 @@
      },
      "S3Key": "7382a0addb9f34974a1ea6c6c9b063882af874828f366f5c93b2b7b64db15c94.zip"
     },
-    "Description": "AWS CDK resource provider framework - onEvent (integ-cdk-ecs-dns/Ips/Route53Writer/Provider)",
+    "Description": "AWS CDK resource provider framework - onEvent (integ-cdk-ecs-dns/Ips/DnsRecordRegistry/Provider)",
     "Environment": {
      "Variables": {
       "USER_ON_EVENT_FUNCTION_ARN": {
        "Fn::GetAtt": [
-        "IpsRoute53WriterGcFunction18CEEA12",
+        "IpsDnsRecordRegistryGcFunction59809E56",
         "Arn"
        ]
       }
@@ -781,7 +821,7 @@
     "Handler": "framework.onEvent",
     "Role": {
      "Fn::GetAtt": [
-      "IpsRoute53WriterProviderframeworkonEventServiceRoleE17A06B6",
+      "IpsDnsRecordRegistryProviderframeworkonEventServiceRole8CD14DA5",
       "Arn"
      ]
     },
@@ -789,16 +829,21 @@
     "Timeout": 900
    },
    "DependsOn": [
-    "IpsRoute53WriterProviderframeworkonEventServiceRoleDefaultPolicyE0496DA2",
-    "IpsRoute53WriterProviderframeworkonEventServiceRoleE17A06B6"
+    "IpsDnsRecordRegistryProviderframeworkonEventServiceRoleDefaultPolicyBED731D9",
+    "IpsDnsRecordRegistryProviderframeworkonEventServiceRole8CD14DA5",
+    "IpsRoute53WriterStreamHandlerDynamoDBEventSourceintegcdkecsdnsIpsTable7012C25A9987D14B",
+    "IpsRoute53WriterStreamHandlerLogRetention56223588",
+    "IpsRoute53WriterStreamHandler3D4AAE4F",
+    "IpsRoute53WriterStreamHandlerServiceRoleDefaultPolicyCEEBA75A",
+    "IpsRoute53WriterStreamHandlerServiceRole72BBA7E2"
    ]
   },
-  "IpsRoute53WriterCustomResource55F5F10D": {
-   "Type": "Custom::Route53WriterGC",
+  "IpsDnsRecordRegistryCustomResource732F1372": {
+   "Type": "Custom::DnsRecordRegistry",
    "Properties": {
     "ServiceToken": {
      "Fn::GetAtt": [
-      "IpsRoute53WriterProviderframeworkonEvent10EFDAB5",
+      "IpsDnsRecordRegistryProviderframeworkonEvent559C9F0B",
       "Arn"
      ]
     },
@@ -807,7 +852,7 @@
       "HostedZoneId": {
        "Ref": "HostedZoneDB99F866"
       },
-      "Name": "example"
+      "Name": "example.cdk-ecs-dns.dev.wheatstalk.ca"
      }
     ]
    },

@@ -18,7 +18,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/bf63a5ca470b49d661a833d5d0dfef4ea869e29efb134e44f64355ba1f9b2d30.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/83c761a2bf8116aebebdea7dd56636affd1cf83a51b5a4ba4e4a6061727c8a7a.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -74,54 +74,6 @@
           {
             "type": "aws:cdk:logicalId",
             "data": "Route53WriterStreamHandlerLogRetentionA9F9EAFE"
-          }
-        ],
-        "/integ-r53writer/Route53Writer/GcFunction/ServiceRole/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "Route53WriterGcFunctionServiceRoleF7369AA5"
-          }
-        ],
-        "/integ-r53writer/Route53Writer/GcFunction/ServiceRole/DefaultPolicy/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "Route53WriterGcFunctionServiceRoleDefaultPolicy71EA565F"
-          }
-        ],
-        "/integ-r53writer/Route53Writer/GcFunction/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "Route53WriterGcFunction96D4C985"
-          }
-        ],
-        "/integ-r53writer/Route53Writer/GcFunction/LogRetention/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "Route53WriterGcFunctionLogRetentionBE0028D8"
-          }
-        ],
-        "/integ-r53writer/Route53Writer/Provider/framework-onEvent/ServiceRole/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "Route53WriterProviderframeworkonEventServiceRole42C9226E"
-          }
-        ],
-        "/integ-r53writer/Route53Writer/Provider/framework-onEvent/ServiceRole/DefaultPolicy/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "Route53WriterProviderframeworkonEventServiceRoleDefaultPolicy5DE106B1"
-          }
-        ],
-        "/integ-r53writer/Route53Writer/Provider/framework-onEvent/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "Route53WriterProviderframeworkonEventA9B9672E"
-          }
-        ],
-        "/integ-r53writer/Route53Writer/CustomResource/Default": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "Route53WriterCustomResource4E3A6842"
           }
         ],
         "/integ-r53writer/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/Resource": [
@@ -184,28 +136,73 @@
             "data": "CheckBootstrapVersion"
           }
         ],
-        "AddFnServiceRoleFD536FA7": [
+        "Route53WriterGcFunctionServiceRoleF7369AA5": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "AddFnServiceRoleFD536FA7",
+            "data": "Route53WriterGcFunctionServiceRoleF7369AA5",
             "trace": [
               "!!DESTRUCTIVE_CHANGES: WILL_DESTROY"
             ]
           }
         ],
-        "AddFnServiceRoleDefaultPolicyC48C193D": [
+        "Route53WriterGcFunctionServiceRoleDefaultPolicy71EA565F": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "AddFnServiceRoleDefaultPolicyC48C193D",
+            "data": "Route53WriterGcFunctionServiceRoleDefaultPolicy71EA565F",
             "trace": [
               "!!DESTRUCTIVE_CHANGES: WILL_DESTROY"
             ]
           }
         ],
-        "AddFnD9BA6D61": [
+        "Route53WriterGcFunction96D4C985": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "AddFnD9BA6D61",
+            "data": "Route53WriterGcFunction96D4C985",
+            "trace": [
+              "!!DESTRUCTIVE_CHANGES: WILL_DESTROY"
+            ]
+          }
+        ],
+        "Route53WriterGcFunctionLogRetentionBE0028D8": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Route53WriterGcFunctionLogRetentionBE0028D8",
+            "trace": [
+              "!!DESTRUCTIVE_CHANGES: WILL_DESTROY"
+            ]
+          }
+        ],
+        "Route53WriterProviderframeworkonEventServiceRole42C9226E": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Route53WriterProviderframeworkonEventServiceRole42C9226E",
+            "trace": [
+              "!!DESTRUCTIVE_CHANGES: WILL_DESTROY"
+            ]
+          }
+        ],
+        "Route53WriterProviderframeworkonEventServiceRoleDefaultPolicy5DE106B1": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Route53WriterProviderframeworkonEventServiceRoleDefaultPolicy5DE106B1",
+            "trace": [
+              "!!DESTRUCTIVE_CHANGES: WILL_DESTROY"
+            ]
+          }
+        ],
+        "Route53WriterProviderframeworkonEventA9B9672E": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Route53WriterProviderframeworkonEventA9B9672E",
+            "trace": [
+              "!!DESTRUCTIVE_CHANGES: WILL_DESTROY"
+            ]
+          }
+        ],
+        "Route53WriterCustomResource4E3A6842": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Route53WriterCustomResource4E3A6842",
             "trace": [
               "!!DESTRUCTIVE_CHANGES: WILL_DESTROY"
             ]
@@ -231,7 +228,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/3922a135748dd9c7fbf2171f440a19aa03cc335a6122357ac9349b36e01f321b.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/4e6ec946caedca2da85e16854a1edb712922948ceab6b7c83549a5644dc5e506.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [

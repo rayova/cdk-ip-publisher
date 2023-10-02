@@ -150,10 +150,10 @@
         "devDependencies": [
           "**/test/**",
           "**/build-tools/**",
+          "src/DnsRecordRegistry/gc.lambda.ts",
           "src/EcsServicePublisher/task-started.lambda.ts",
           "src/EcsServicePublisher/task-stopping.lambda.ts",
           "src/EcsServicePublisher/task-sync.lambda.ts",
-          "src/Route53Writer/gc.lambda.ts",
           "src/Route53Writer/stream-handler.lambda.ts",
           ".projenrc.ts",
           "projenrc/**/*.ts"

@@ -1,7 +1,7 @@
 import { AppHandler, logger, tracer } from '../runtime';
 import { z } from 'zod';
 import { database } from '../database';
-import { getRecordSet } from './runtime';
+import { getRecordSet } from '../Route53Writer/runtime';
 
 type CfnRegisteredRecord = z.infer<typeof CfnRegisteredRecord$>;
 const CfnRegisteredRecord$ = z.object({

@@ -15,10 +15,10 @@
     ".projen/tasks.json",
     "cdk.json",
     "LICENSE",
+    "src/DnsRecordRegistry/gc-function.ts",
     "src/EcsServicePublisher/task-started-function.ts",
     "src/EcsServicePublisher/task-stopping-function.ts",
     "src/EcsServicePublisher/task-sync-function.ts",
-    "src/Route53Writer/gc-function.ts",
     "src/Route53Writer/stream-handler-function.ts",
     "tsconfig.dev.json"
   ],

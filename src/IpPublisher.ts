@@ -2,11 +2,12 @@ import { aws_ecs, aws_route53 } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { EcsServicePublisher } from './EcsServicePublisher';
 import { IpPublisherDatabase } from './IpPublisherDatabase';
-import { Route53Writer } from './Route53Writer';
+import { DnsRecordRegistry, Route53Writer } from './Route53Writer';
 
 export class IpPublisher extends Construct {
   private readonly table: IpPublisherDatabase;
   private readonly writer: Route53Writer;
+  private readonly registry: DnsRecordRegistry;
 
   constructor(scope: Construct, id: string) {
     super(scope, id);
@@ -16,12 +17,23 @@ export class IpPublisher extends Construct {
     this.writer = new Route53Writer(this, 'Route53Writer', {
       table: this.table,
     });
+
+    this.registry = new DnsRecordRegistry(this, 'DnsRecordRegistry', {
+      table: this.table,
+    });
+
+    // Ensure the registry depends on the writer so that when the registry is
+    // destroyed, the writer is still around to clean up the Route53 records
+    // that the registry created.
+    this.registry.node.addDependency(this.writer);
   }
 
   publishEcsService(id: string, params: PublishEcsServiceParams): void {
     const name = (params.name ?? id).toLowerCase();
 
-    this.writer.registerRecord({
+    // TODO: Consider making this EcsServicePublisher's responsibility.
+
+    this.registry.registerRecord({
       hostedZone: params.hostedZone,
       name,
     });
