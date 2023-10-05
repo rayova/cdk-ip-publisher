@@ -26,6 +26,7 @@
     "docgen": "npx projen docgen",
     "eject": "npx projen eject",
     "eslint": "npx projen eslint",
+    "integ": "npx projen integ",
     "integ:main:assert": "npx projen integ:main:assert",
     "integ:main:deploy": "npx projen integ:main:deploy",
     "integ:main:destroy": "npx projen integ:main:destroy",
@@ -33,6 +34,7 @@
     "integ:main:snapshot": "npx projen integ:main:snapshot",
     "integ:main:watch": "npx projen integ:main:watch",
     "integ:snapshot-all": "npx projen integ:snapshot-all",
+    "integ:update": "npx projen integ:update",
     "package": "npx projen package",
     "package-all": "npx projen package-all",
     "package:js": "npx projen package:js",
@@ -53,8 +55,8 @@
     "organization": false
   },
   "devDependencies": {
-    "@aws-cdk/integ-runner": "^2.97.0-alpha.0",
-    "@aws-cdk/integ-tests-alpha": "^2.97.0-alpha.0",
+    "@aws-cdk/integ-runner": "latest",
+    "@aws-cdk/integ-tests-alpha": "latest",
     "@aws-lambda-powertools/logger": "^1",
     "@aws-lambda-powertools/tracer": "^1",
     "@aws-sdk/client-dynamodb": "^3",

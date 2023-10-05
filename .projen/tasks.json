@@ -259,6 +259,16 @@
         }
       ]
     },
+    "integ": {
+      "name": "integ",
+      "description": "Run integration snapshot tests",
+      "steps": [
+        {
+          "exec": "integ-runner $@ --language typescript",
+          "receiveArgs": true
+        }
+      ]
+    },
     "integ:main:assert": {
       "name": "integ:main:assert",
       "description": "assert the snapshot of integration test 'main'",
@@ -336,6 +346,16 @@
       "steps": [
         {
           "spawn": "integ:main:snapshot"
+        }
+      ]
+    },
+    "integ:update": {
+      "name": "integ:update",
+      "description": "Run and update integration snapshot tests",
+      "steps": [
+        {
+          "exec": "integ-runner $@ --language typescript --update-on-failed",
+          "receiveArgs": true
         }
       ]
     },
@@ -427,7 +447,7 @@
           "spawn": "integ:main:assert"
         },
         {
-          "exec": "integ-runner --language typescript"
+          "spawn": "integ"
         }
       ]
     },
@@ -467,13 +487,13 @@
           "exec": "yarn upgrade npm-check-updates"
         },
         {
-          "exec": "npm-check-updates --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@aws-cdk/integ-runner,@aws-cdk/integ-tests-alpha,@aws-lambda-powertools/logger,@aws-lambda-powertools/tracer,@aws-sdk/client-dynamodb,@aws-sdk/client-ec2,@aws-sdk/client-ecs,@aws-sdk/client-route-53,@aws-sdk/lib-dynamodb,@middy/core,@types/aws-lambda,@types/jest,@types/node,@typescript-eslint/eslint-plugin,@typescript-eslint/parser,aws-cdk,electrodb,esbuild,eslint-import-resolver-node,eslint-import-resolver-typescript,eslint-plugin-import,eslint,jest,jest-junit,jsii-diff,jsii-docgen,jsii-pacmak,npm-check-updates,projen,standard-version,ts-jest,ts-node,typescript,zod,aws-cdk-lib,constructs"
+          "exec": "npm-check-updates --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@aws-lambda-powertools/logger,@aws-lambda-powertools/tracer,@aws-sdk/client-dynamodb,@aws-sdk/client-ec2,@aws-sdk/client-ecs,@aws-sdk/client-route-53,@aws-sdk/lib-dynamodb,@middy/core,@types/aws-lambda,@types/jest,@types/node,@typescript-eslint/eslint-plugin,@typescript-eslint/parser,aws-cdk,electrodb,esbuild,eslint-import-resolver-node,eslint-import-resolver-typescript,eslint-plugin-import,eslint,jest,jest-junit,jsii-diff,jsii-docgen,jsii-pacmak,npm-check-updates,projen,standard-version,ts-jest,ts-node,typescript,zod,aws-cdk-lib,constructs"
         },
         {
           "exec": "yarn install --check-files"
         },
         {
-          "exec": "yarn upgrade @aws-cdk/integ-runner @aws-cdk/integ-tests-alpha @aws-lambda-powertools/logger @aws-lambda-powertools/tracer @aws-sdk/client-dynamodb @aws-sdk/client-ec2 @aws-sdk/client-ecs @aws-sdk/client-route-53 @aws-sdk/lib-dynamodb @middy/core @types/aws-lambda @types/jest @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser aws-cdk electrodb esbuild eslint-import-resolver-node eslint-import-resolver-typescript eslint-plugin-import eslint jest jest-junit jsii-diff jsii-docgen jsii-pacmak npm-check-updates projen standard-version ts-jest ts-node typescript zod aws-cdk-lib constructs"
+          "exec": "yarn upgrade @aws-lambda-powertools/logger @aws-lambda-powertools/tracer @aws-sdk/client-dynamodb @aws-sdk/client-ec2 @aws-sdk/client-ecs @aws-sdk/client-route-53 @aws-sdk/lib-dynamodb @middy/core @types/aws-lambda @types/jest @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser aws-cdk electrodb esbuild eslint-import-resolver-node eslint-import-resolver-typescript eslint-plugin-import eslint jest jest-junit jsii-diff jsii-docgen jsii-pacmak npm-check-updates projen standard-version ts-jest ts-node typescript zod aws-cdk-lib constructs"
         },
         {
           "exec": "npx projen"

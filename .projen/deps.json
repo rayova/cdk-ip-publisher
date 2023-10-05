@@ -1,16 +1,6 @@
 {
   "dependencies": [
     {
-      "name": "@aws-cdk/integ-runner",
-      "version": "^2.97.0-alpha.0",
-      "type": "build"
-    },
-    {
-      "name": "@aws-cdk/integ-tests-alpha",
-      "version": "^2.97.0-alpha.0",
-      "type": "build"
-    },
-    {
       "name": "@aws-lambda-powertools/logger",
       "version": "^1",
       "type": "build"
@@ -175,6 +165,16 @@
       "name": "zod",
       "version": "^3",
       "type": "build"
+    },
+    {
+      "name": "@aws-cdk/integ-runner",
+      "version": "latest",
+      "type": "devenv"
+    },
+    {
+      "name": "@aws-cdk/integ-tests-alpha",
+      "version": "latest",
+      "type": "devenv"
     },
     {
       "name": "aws-cdk-lib",
