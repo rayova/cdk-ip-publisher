@@ -26,3 +26,6 @@ tsconfig.tsbuildinfo
 test/.tmp
 test/main.integ.snapshot
 cdk.out
+/.gitattributes
+/.projenrc.ts
+/projenrc
